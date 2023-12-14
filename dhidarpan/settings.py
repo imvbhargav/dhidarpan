@@ -22,11 +22,11 @@ TEMPLATES_DIRS = os.path.join(BASE_DIR,'templates')
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)s+azt6rt+!mz9vbn&6ybxtfu6&0s3n95l_sf60%r@16%m9+8x'
-GOOGLE_RECAPTCHA_SECRET_KEY = 'tempvar'#config('GOOGLE_RECAPTCHA_SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
+GOOGLE_RECAPTCHA_SECRET_KEY = config('GOOGLE_RECAPTCHA_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True#config('DEBUG',cast=bool)
+DEBUG = config('DEBUG',cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -119,8 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
 #Jazzzmin admin config start
 JAZZMIN_SETTINGS = {
     "site_title": "Dhi Darpan",
@@ -190,7 +188,7 @@ JAZZMIN_SETTINGS = {
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'dhidarpan.backends.EmailBackend',
-    )
+)
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,
@@ -243,9 +241,9 @@ SUMMERNOTE_CONFIG = {
     }
 }
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''#config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''#config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
-GOOGLE_REDIRECT_URI = ''#config('GOOGLE_REDIRECT_URI')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+GOOGLE_REDIRECT_URI = config('GOOGLE_REDIRECT_URI')
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'pa-land'
 
@@ -264,7 +262,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ''#config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = ''#config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False

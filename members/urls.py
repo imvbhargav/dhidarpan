@@ -1,7 +1,3 @@
-
-"""from django.urls import path
-from . import views
-from .views import UserRegisterView"""
 from django.urls import path, include, re_path
 from members import views as user_view
 from members.views import ResetPasswordView

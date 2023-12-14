@@ -414,7 +414,7 @@ def google_sso_callback(request):
     #log in the user
     user = EmailBackend.authenticate(ModelBackend(), request, email=email)
     if user is not None:
-        login(request, user, backend='mysite.backends.EmailBackend')
+        login(request, user, backend='dhidarpan.backends.EmailBackend')
         # Redirect to a success page.
         return redirect('pa-land')
     else:
