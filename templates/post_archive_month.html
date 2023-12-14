@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block title %} Archive | Dhi Darpan {% endblock %}
+{% load static %}
+{% block content %}
+<style>
+.card-cont{
+    font-family: 'DM Serif Display', serif;
+}
+.post-card{
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.form-control{
+    border: none;
+    border-bottom: 2px gray solid;
+    border-radius: 0px;
+}
+.form-control:focus{
+    border: none;
+    outline: 0;
+    border-bottom: 2px orangered solid;
+    border-radius: 0px;
+    box-shadow: none;
+    transition: all 0.2s ease-in-out;
+}
+.border-mbl1{
+    width: 100%;
+    height: 15px;
+    background-color: transparent;
+    box-shadow: 10px 10px black, -10px 10px black;
+    display: none;
+    border-radius: 10px;
+}
+.border-mbl2{
+    width: 100%;
+    height: 10px;
+    background-color: black;
+    display: none;
+}
+.border-mbl3{
+    width: 100%;
+    height: 15px;
+    background-color: transparent;
+    box-shadow: 10px -10px black, -10px -10px black;
+    display: none;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .post-card{
+        border-radius: 0;
+        border: none;
+    }
+    .border-mbl1{
+        display: block;
+    }
+    .border-mbl2{
+        display: block;
+    }
+    .border-mbl3{
+        display: block;
+    }
+}
+</style>
+
+<div class="card-cont">
+    <hr>
+    <h5 class="centr"><b>Posts of {{ post_list.0.created_on|date:'F' }} {{ post_list.0.created_on|date:'Y' }}</b></h5>
+    <hr>
+    <div class="srch">
+        <form class="form-inline my-2 my-lg-0" action="{% url 'home' %}">
+            <input class="form-control sform mr-sm-2" type="search"   placeholder="Search by Title" aria-label="Search" name="search">
+            <button class="sbtn btn my-2 my-sm-0" type="submit"><img src="{% static 'img/loupe.png' %}" alt="Search" width="25" height="25"></button>
+        </form>
+    </div>
+    <div class="row">
+        {% for post in post_list %}
+        <div class="border-mbl1"></div>
+        <div class="border-mbl2"></div>
+        <div class="border-mbl3"></div>
+        <div class="post-card col">
+            <a href={% url 'post_detail' post.slug %}><img class="thumb" width="50" height="50" src="../../media/{{ post.thumbnail }}" alt="{{ post.slug }}"></a>
+            <div class="listinfo"><hr>
+            <p class="text-muted"><small  style="color: orangered;">{{post.likes.count}} Likes</small></p>
+            <h6 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' post.slug %}><b>{{ post.title }}</b></a></h6>
+            <p class="text-muted"><small><small>{{post.author.first_name}} {{ post.author.last_name }} | {{ post.created_on|date:'d-M-Y' }}</small></small></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% if page_obj.has_other_pages %}
+<br><br><br>
+<div class="centr">
+  <div class="paginations">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}"><b>&laquo;</b> prev</a>
+    <a href="?page={{ page_obj.previous_page_number }}" >{{ page_obj.previous_page_number }}</a>
+    {% endif %}
+    <a href="#" class="active">{{ page_obj.number }}</a>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" >{{ page_obj.next_page_number }}</a>
+    <a href="?page={{ page_obj.next_page_number }}">next <b>&raquo;</b></a>
+   {% endif %}
+  </div>
+</div>
+{% endif %}
+<br>
+<h5 class="centr"><a href="{% url 'archive' %}">
+    <button class="ct-btn" type="button">&larr;</button>
+</a></h5>
+{% endblock content %}

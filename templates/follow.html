@@ -1,0 +1,40 @@
+{% load static %}
+{% if user.is_authenticated %}
+<style>
+    .btnstl{
+        background-color: transparent;
+        border: none;
+        outline: none;
+        margin-left: 8px;
+        color: orangered;
+    }
+    .follow{
+        color: orangered;
+    }
+    .follow:active{
+        color: gray;
+        text-decoration: none;
+    }
+    .follow:hover{
+        color: gray;
+        text-decoration: none;
+    }
+</style>
+<div id="follow-div">
+<form action="{% url 'follow_user' usr.username %}" method="post">
+    {% csrf_token %}
+    {% if followed %}
+    <button name="post_id" type="submit" value="{{ usr.id }}" class="btnstl"
+    hx-target="#follow-div" hx-post="{% url 'follow_user' usr.username %}" hx-trigger="click"
+    ><span style="color:black" class="dna">&#x2022; </span><span style="padding-left: 10px;" class="follow">Unfollow</span></button><br>
+    {% else %}
+    <button name="post_id" type="submit" value="{{ usr.id }}" class="btnstl"
+    hx-target="#follow-div" hx-post="{% url 'follow_user' usr.username %}" hx-trigger="click"
+    ><span style="color:black" class="dna">&#x2022; </span><span style="padding-left: 10px;" class="follow">Follow</span></button><br>
+    {% endif %}
+</form>
+</div>
+{% else %}
+    <span style="color:black;padding-left: 15px;" class="dna">&#x2022; </span><span style="margin-left: 10px;" class="follow">Login to follow.</span><br>
+{% endif %}
+

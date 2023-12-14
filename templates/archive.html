@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %} Archive | Dhi Darpan {% endblock %}
+{% load static %}
+{% block content %}
+<style>
+    .topgap{
+        font-family: 'DM Serif Display', serif;
+    }
+</style>
+<div class="container topgap">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6 card mb-4 mt-3 top">
+            <div class="card-body centr">
+                <h5><b>Blog Archive</b></h5>
+    {% regroup all_posts by created_on.year as year_list %}
+
+    
+    {% for year in year_list %}
+    <hr>
+        <b style="color: orangered;"> {{ year.grouper }} </b><br><hr>
+            {% regroup year.list by created_on.month as month_list %}
+            
+            {% for month in month_list %}
+                <br><a href="{% url 'post_archive_month' year.grouper month.grouper %}">{{ month.list.0.created_on|date:'F' }}</a><br>
+            {% endfor %}
+            
+        <br>
+    {% endfor %}
+    </div>
+    </div>
+    </div>
+</div>
+<div class="xfoot centr">
+    <h4><strong> Want to explore more? </strong></h4>
+    <h6 style="color: orangered;"><b> Explore our blog by </b></h6>
+    <div class="xlinks">
+        <a href="{% url 'our-authors' %}"><b> Authors </b></a> | 
+        <a href="{% url 'popular' %}"><b> Popular </b></a> |  
+        <a href="{% url 'archive' %}"><b> Archive </b></a>
+        <br><b>Or</b><br>
+        <a href="{% url 'home' %}"><b> Back To Home</b></a>
+    </div>
+    <br>
+</div>
+{% endblock %}

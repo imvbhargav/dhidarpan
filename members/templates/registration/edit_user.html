@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %} Edit Profile | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+<style>
+    .topgap{
+        font-family: 'DM Serif Display', serif;
+    }
+    .logn{
+        color:orangered;
+    }
+    .form-control{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+    }
+    .form-control:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .errmsg{
+        color: red;
+    }
+    .form-dp{
+        position: absolute;
+        margin-left: -45px;
+        width: 40px;
+        z-index: 1;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .vis-btn{
+        margin-top: 5px;
+    }
+    .visual{
+        background-color: transparent;
+        border-radius: 15px;
+        width: 50px;
+        z-index: -1;
+        color: azure;
+        border: none;
+        font-size: 0.5em;
+        cursor: pointer;
+    }
+    .del{
+        background-color: transparent;
+    }
+    .dp-image{
+        border-radius: 50%;
+        box-shadow: 0px 0px 10px 0px gray;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+</style>
+<div class="container topgap">
+    <div class="row justify-content-md-center">
+        <div class="col-md-7 card mb-4 mt-3 top">
+            <div class="card-body ">
+                <p class="card-text">
+                <h2 class="centr"><b><span class="logn">E</span>dit Profile<span class="logn">.</span></b></h2>
+                <br>
+                {% include 'registration/edit_user_model.html' %}
+                <form method='post' enctype="multipart/form-data">
+                    {% csrf_token %}
+            <br>
+        <br>
+        {% render_field user_form.username class="form-control" hx-post="/members/check_username/" hx-swap="outerhtml" hx-trigger="keyup" hx-target="#un-error" %}
+        <div id="un-error"></div>
+        <br>
+        {% render_field user_form.first_name class="form-control" %}
+        <br>
+        {% render_field user_form.last_name class="form-control" %}
+        <br>
+        {% render_field user_form.email class="form-control" hx-post="/members/check_email/" hx-swap="outerhtml" hx-trigger="keyup" hx-target="#em-error" %}
+        <div id="em-error" style='color:red;padding-left:2%;'><small>{{ ermsg }}</small></div>
+        <br>
+        {% render_field profile_form.bio class="form-control" %}
+        <br>
+        {% render_field profile_form.website_url class="form-control" %}
+        <br>
+        {% render_field profile_form.facebook_url class="form-control" %}
+        <br>
+        {% render_field profile_form.twitter_url class="form-control" %}
+        <br>
+        {% render_field profile_form.youtube_url class="form-control" %}
+        <br>
+        {% render_field profile_form.linkedin_url class="form-control" %}
+        <div class="centr">
+            <br>
+            <input id="senb"  class="ct-btn" type="submit" value="Update Profile">
+            <br><br>
+            <a href="{% url 'change_password' %}"> Change Password.</a>
+        </div>
+    </form>
+    </p>
+
+</div>
+        </div>
+    </div>
+</div>
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+    //evt.detail.parameters['auth_token'] = getAuthToken(); // add a new parameter into the request
+    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'; // add a new header into the request
+    });
+</script>
+{% endblock %}

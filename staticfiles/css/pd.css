@@ -1,0 +1,221 @@
+
+    a.text-muted{
+        font-size: unset;
+    }
+    .cbin p{
+        font-size: medium;
+    }
+    .title{
+        font-size: x-large;
+        font-family: 'DM Serif Display', serif;
+    }
+    .text-muted{
+        font-size: small;
+    }
+    .container{
+        padding-left: 12px;
+    }
+    .post-gap{
+        padding: 5rem 1em 1em 1em;
+    }
+    .row{
+        border: 1px lightgray solid;
+        border-radius: 5px ;
+    }
+    .pd-flex{
+        display: flex;
+    }
+    .pd-none{
+        display: none;
+    }
+    .pd-block{
+        display: block;
+    }
+    .info{
+        font-size: small;
+    }
+    .cmmt{
+        color: whitesmoke; 
+        border: 2px solid transparent; 
+        border-radius: 5px; 
+        background-color: transparent; 
+        margin-left: 1.3em; 
+        margin-bottom: 0.8em; 
+        width: 30;
+    }
+    .rply{
+        border: 2px solid transparent; 
+        border-radius: 5px; 
+        background-color: transparent;
+    }
+    .cmnt-box{
+        color: green; 
+        border-bottom: 1px solid green;
+    }
+    .rply-box{
+        color: red; 
+        border-bottom: 1px solid red;
+    }
+    .trnsprnt{
+        background-color: transparent;
+    }
+    .p3em{
+        margin-top: 1.3em;
+    }
+    .p10{
+        padding: 10px;
+    }
+    .pl50{
+        padding-left: 50px;
+    }
+    .blk{
+        color:rgb(38, 37, 41);
+    }
+    .blu{
+        color: blue;
+    }
+    .lar{
+        border-bottom:1px solid grey ;
+    }
+    .full-box{
+        margin-left: 0;
+        border: none;
+        padding: 0;
+    }
+
+    .dp-img{
+        margin-top: 25px;
+        margin-left: 25px;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        position: absolute;
+        border-radius: 50%;
+        box-shadow: 0px 0px 1px 2px white;
+    }
+    .dp-box{
+        clip-path: polygon(0 0, 0 0, 100% 100%, 0 100%);
+        padding: 0;
+        min-width: 150px;
+        min-height: 150px;
+        background-color: orangered;
+        max-width: 150px;
+        border-bottom: 1px orangered solid;
+    }
+    .dp-box2{
+        position: absolute;
+        padding: 0;
+        min-width: 150px;
+        min-height: 150px;
+        max-width: 100%;
+        border-right: none;
+        max-height: 150px;
+    }
+    .dp-box2 h6{
+        display: none;
+    }
+    .in-box{
+        margin-left: 0px;
+        padding: 0;
+        min-width: 200px;
+        border-bottom: 1px orangered solid;
+        border-left: none;
+        color: orangered;
+    }
+    .in-box h6{
+        margin-top: 1em;
+        color: black;
+    }
+    .in-box p{
+        color: gray;
+    }
+    .in-box a{
+        color: orangered;
+    }
+
+    .bg-cl{
+        background-color: yellowgreen;
+        min-width: 200px;
+        
+    }
+    .tnam{
+        padding-top: 5px;
+    }
+    .icinfo{
+        min-height: 200px;
+        min-width: 200px;
+        padding: 0;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+    .card{
+        border: none;
+        padding: 0;
+    }
+    .text-red{
+        color: red;
+    }
+    .card-body{
+        padding: 0;
+    }
+    .cbin{
+        padding: 0;
+    }
+    .overlay{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        margin-bottom: 2rem;
+        background-color: rgba(0, 0, 0, 0.85);
+    }
+    .fallback{
+        position: fixed;
+        width: 200px;
+        height: 200px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 20px;
+        z-index: 2;
+        background-color: aliceblue;
+        padding-top: 1em;
+    }
+    .hid{
+        display: none;
+    }
+    .shw{
+        display: block;
+    }
+    @media only screen and (max-width: 600px) {
+        .post-head{
+            max-width: 100%;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(black,black, rgb(40, 40, 40), orangered);
+            box-shadow: inset 0px 0px 120px 30px #000;
+            color: rgb(185, 185, 185);
+            background-size: cover;
+            border-radius: 15px;
+        }
+        .cbin p{
+            font-size: smaller;
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        .dp-box2{
+            overflow: scroll;
+        }
+        .dp-box2 h6{
+            display: block;
+            overflow: scroll;
+        }
+        .hidembl{
+            display: none;
+        }
+        .in-box{
+            padding-top: 1em;
+        }
+    }

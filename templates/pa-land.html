@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<style>
+    .postadmin{
+        color:orangered;
+    }
+    button{
+        margin-bottom: 5px;
+    }
+    .card{
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+    .font-head{
+        font-family: 'DM Serif Display', serif;
+    }
+    .d-flx-main{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .d-flx-sec{
+        display: flex;
+        align-items: center;
+    }
+    .org_rd{
+        color: orangered;
+        text-decoration: none;
+    }
+    .undrln{
+        text-decoration: underline;
+    }
+    .spl-card{
+        background: black;
+        width: 200px;
+        height: 200px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        flex-direction:column;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        transition: 150ms ease;
+    }
+    .spl-card:hover{
+        background: #303030;
+        transition: 150ms ease;
+    }
+    .ornge_bordr{
+        border: 4px orangered solid;
+    }
+    .blk_bordr{
+        border: 4px black solid;
+    }
+    .ornge_bordr:hover{
+        border: 0px orangered solid;
+        transition: 200ms ease;
+    }
+    .ran-det{
+        background: black;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .bl-ck{
+        color: black;
+    }
+    .sens{
+        background: orangered;
+    }
+    .d-none{
+        display: none;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .mbl-d-none{
+            display: none;
+        }
+    }
+</style>
+<div class="container topgap">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10 card mb-4 mt-3 top">
+            <div class="card-body">
+                {% if user.is_authenticated %}
+                <div class="centr font-head">
+                    <div class="d-flx-main">
+                        <div class="d-flx-sec">
+                            <span class="ext regs login" style="padding: 0 10px 10px 0;cursor:pointer;">
+                                <img src="{{ user.profileinfo.display_picture.url }}" width="30" height="30" style="border-radius: 50%"/>
+                            </span>
+                            <h4 class="centr"><span class="undrln"><b>{% block title %}{{ user.username }}{% endblock %}</b></span><span class="org_rd">.</span></h4>
+                        </div>
+                    </div><hr>
+                    {% if perms.blog.add_post %}
+                    <div class="d-flx-main mbl-d-none">
+                        <p class="font-head"><b> <span class="bl-ck">Published Posts:</span> <span class="org_rd ran-det">{{ pPostsCount }}</span></b></p>
+                        <p class="font-head"><b> <span class="bl-ck">Last Published On:</span> <span class="org_rd ran-det">{{ lastPublished.0.created_on }}</span></b></p>
+                        <p class="font-head"><b> <span class="bl-ck">Draft Posts:</span> <span class="org_rd ran-det">{{ dPostsCount }}</span></b></p>
+                    </div><hr class="mbl-d-none">
+                    <div>
+                        <h3 style="text-align: left;"><span class="org_rd"><strong>A</strong></span><span class="undrln">uthor Controls</span>:</h3>
+                        <div style="display: flex; align-items: space-around; flex-wrap: wrap;">
+                            <a href="{% url 'add_post' %}">
+                                <div class="spl-card ornge_bordr">
+                                    <img style="width:50%;height:50%" src="{% static 'img/plus.png' %}"/>
+                                    <span style="color: #fff">New Post</span>
+                                </div>
+                            </a>
+                            <a href="{% url 'user-posts' %}">
+                                <div class="spl-card ornge_bordr">
+                                    <img style="width:50%;height:50%" src="{% static 'img/edit.png' %}"/>
+                                    <span style="color: #fff">Manage Posts</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <br/>
+                    {% endif %}
+
+                    {% if perms.blog.change_post %}
+                    <div>
+                        <h3 style="text-align: left;"><span class="org_rd"><strong>E</strong></span><span class="undrln">ditor Controls</span>:</h3>
+                        <div style="display: flex; align-items: space-around; flex-wrap: wrap;">
+                            {% if perms.auth.change_user %}
+                            <a href="{% url 'manage_users' %}">
+                                <div class="spl-card ornge_bordr">
+                                    <img style="width:50%;height:50%" src="{% static 'img/group.png' %}"/>
+                                    <span style="color: #fff">Manage All Users</span>
+                                </div>
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'editor' %}">
+                                <div class="spl-card ornge_bordr">
+                                    <img style="width:50%;height:50%" src="{% static 'img/online.png' %}"/>
+                                    <span style="color: #fff">Manage All Posts</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <br/>
+                    {% endif %}
+
+                    <div>
+                        <h3 style="text-align: left;"><span class="org_rd"><strong>U</strong></span><span class="undrln">ser Controls</span>:</h3>
+                        <div style="display: flex; align-items: space-around; flex-wrap: wrap;">
+                            <a href="{% url 'profile' user.username %}">
+                                <div class="spl-card ornge_bordr">
+                                    <img style="width:50%;height:50%" src="{% static 'img/user-dup.png' %}"/>
+                                    <span style="color: #fff">View Profile</span>
+                                </div>
+                            </a>
+                            <a href="{% url 'edit-user' %}">
+                                <div class="spl-card ornge_bordr">
+                                    <img style="width:50%;height:50%" src="{% static 'img/user-avatar.png' %}"/>
+                                    <span style="color: #fff">Edit Profile</span>
+                                </div>
+                            </a>
+                            <a href="{% url 'change_password' %}">
+                                <div class="spl-card ornge_bordr">
+                                    <img style="width:50%;height:50%" src="{% static 'img/password.png' %}"/>
+                                    <span style="color: #fff">Change Password</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <hr/>
+                    <div>
+                        <h3 style="text-align: left;"><span class="org_rd"><strong>S</strong></span><span class="undrln">ensitive Controls</span>:</h3>
+                        <div style="display: flex; align-items: space-around; flex-wrap: wrap;">
+                                {% if isSubscribed %}
+                                <a href="{% url 'unsubscribe' %}">
+                                    <div class="spl-card sens blk_bordr">
+                                        <span style="color: #fff">Unsubscribe From Newsletter</span>
+                                    </div>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'subscribe_user' %}">
+                                    <div class="spl-card ornge_bordr">
+                                        <span style="color: #fff">Subscribe To Newsletter</span>
+                                    </div>
+                                </a>
+                                {% endif %}
+                            <a href="{% url 'confirm_delete_user' %}">
+                                <div class="spl-card sens blk_bordr">
+                                    <span style="color: #fff">Delete Profile</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

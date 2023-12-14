@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %} Your Posts | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<style>
+    .dp-img{
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0px 0px 1px 2px white;
+        margin-right: 0em;
+    }
+    
+    .in-box{
+        padding: 0;
+        min-width: 200px;
+   
+        color: orangered;
+    }
+    .in-box h5{
+        margin-top: 0em;
+        color: black;
+    }
+    .in-box p{
+        color: gray;
+    }
+    .in-box a{
+        color: orangered;
+    }
+
+    .bg-cl{
+        background-color: yellowgreen;
+        min-width: 200px;
+        
+    }
+    .tnam{
+        padding-top: 5px;
+    }
+    .icinfo{
+        min-height: 200px;
+        min-width: 200px;
+        padding: 0;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+    .post-card{
+        min-height: 0%;
+    }
+    .full-box{
+        justify-content: center;
+    }
+    .bgs{
+        background-color: gray;
+        color: white;
+    }
+</style>
+<div class="container topgap">
+    <br><h4 class="centr"><b>Manage All Users.</b></h4>
+    <div class="card" id="usr-list">
+    {% include 'manage_user_model.html' %}
+    </div>
+</div>
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+    //evt.detail.parameters['auth_token'] = getAuthToken(); // add a new parameter into the request
+    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'; // add a new header into the request
+    });
+</script>
+{% endblock %}

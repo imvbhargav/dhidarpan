@@ -1,0 +1,59 @@
+<div id="cmt_div">
+{% load crispy_forms_tags %}
+{% load static %}<div id="comment-box" class="col-md-12 card mb-4 mt-3 pd-none">
+    <div class="card-body trnsprnt">
+        <h5 class="font-head" style="padding: 5px"><b> Leave A Comment</b></h5>
+        <form method="post" class="p3em font-head" autocomplete="off" action="{% url 'post_comment' post.slug %}">
+            {{ comment_form | crispy }}
+            {% csrf_token %}
+            <center><button onclick="show_content('0','comment-form')" class="ct-btn" type="submit" hx-post="{% url 'post_comment' post.slug %}" hx-trigger="click" hx-target="#cmt_div">Submit</button></center>
+        </form>
+    </div>
+    <hr>
+</div>
+<br>
+<div class="col-md-12 card mb-4 mt-3 font-head">
+    <div class="card-body ">
+        <h6><b>{{ comments.count }} Comments</b></h6><hr>
+        {% for comment in comments %}
+        <div class="comments" class="p10">
+            <p class="font-weight-bold cmnt-box">
+                {{ comment.name }} |
+                <span id="text-muted-cmt" class="text-muted font-weight-normal"><small>{{ comment.commented_on }}</small></span>
+            </p>
+            <div class="font-weight-normal blk">
+             {{ comment.body | linebreaks }}
+            </div>
+            <button class="rply" onclick='show_content("{{ forloop.counter }}","reply-form"), usr_details("{{ forloop.counter }}")'> 
+                <img src=" {% static 'img/reply.png' %} " alt="Reply." width="25" height="25" >
+            </button>
+            <hr>
+            <form id="reply-form-{{ forloop.counter }}" action="." method="post" class="pd-none font-head" autocomplete="off">
+                <p class="font-weight-bold lar">Leave A Reply:</p>
+                {{ comment_form | crispy }}
+                {% csrf_token %}
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                <center><input onclick='show_content("{{ forloop.count }}","reply-form")' class="ct-btn" type="submit" value="Reply" hx-post="{% url 'post_comment' post.slug %}" hx-trigger="click" hx-target="#cmt_div"></center>
+                <hr>
+            </form>
+            <h6 class="blu">
+                <button type="button" class="font-weight-bold show_replies" onclick="show_content( '{{ forloop.counter }}', 'replies')">
+                {{ comment.replies.all.count }} Replies
+                </button>
+            </h6>
+            <div id="reply-box-{{ forloop.counter }}" class="pd-none">
+            {% for reply in comment.replies.all %}
+            {% if reply.active %}
+            <div class="replies p10">
+                <p class="font-weight-bold rply-box" >{{ reply.name }} | <span id="text-muted-rly" class="text-muted font-weight-normal"><small>{{ reply.commented_on }}</small></span></p>
+                <p class="font-weight-normal"> {{ reply.body }}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+            </div>
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>

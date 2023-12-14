@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %} Login | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<style>
+    .login{
+        color:orangered;
+    }
+    .card{
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+    .form-control{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+    }
+    .form-control:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .error{
+        color: red;
+        padding: 10px;
+    }
+    .success{
+        color: green;
+        padding: 10px;
+    }
+    .font-head{
+        font-family: 'DM Serif Display', serif;
+    }
+    .orgclr{
+        color: orangered;
+    }
+    .underlined{
+        text-decoration: underline;
+    }
+    @media only screen and (max-width: 500px) {
+        .g-recaptcha {
+            transform:scale(0.72);
+            transform-origin:0 0;
+        }
+    }
+</style>
+<div class="container topgap font-head">
+    <div class="row justify-content-md-center">
+        <div class="col-md-5 card mb-4 mt-3 top">
+            <div class="card-body">
+                <p class="card-text">
+                <h2 class="centr"><b><span class="orgclr">L</span><span class="underlined">ogin</span><span class="orgclr underlined">.</span></b></h2>
+                <hr>
+                <a href="{% url 'google-sso-login' %}"><input id="senb" class="ct-btn" type="button" value="Login with Google"></a><hr/>
+                <small style="color: red; padding-left: 10px;">{{ msg }}</small>
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> <small>{{ message }}</small></p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <form method='post' autocomplete="off">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <script src='https://www.google.com/recaptcha/api.js'></script>
+                    <div class="g-recaptcha" data-sitekey="6Lfj_d8oAAAAACd9E4bo7c2A_jQGlkMTl-zvWTcY" data-theme="dark"></div>
+                    <div class="centr">
+                        <br>
+                        <input id="senb"  class="ct-btn" type="submit" value="Login">
+                        <hr/>
+                        <a href="{% url 'register' %}" class="orgclr"> Register</a> <strong>|</strong>
+                        <a href="{% url 'password_reset' %}" class="orgclr"> Forgot Password.</a>
+                    </div>
+                </form>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

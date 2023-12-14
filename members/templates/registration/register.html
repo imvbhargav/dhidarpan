@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block title %} Register | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+<style>
+    .regs{
+        color:orangered;
+    }
+    .card{
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+    .form-text{
+        display: none;
+    }
+    .form-control{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+    }
+    .form-control:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .ct-btn:disabled{
+        background-color: gray;
+    }
+    .name_div{
+        display: flex;
+        justify-content: space-between;
+    }
+    .width_half{
+        width: 49%;
+    }
+    .font-head{
+        font-family: 'DM Serif Display', serif;
+    }
+    .orgclr{
+        color: orangered;
+    }
+    .underlined{
+        text-decoration: underline;
+    }
+    @media only screen and (max-width: 500px) {
+        .g-recaptcha {
+            transform:scale(0.72);
+            transform-origin:0 0;
+        }
+    }
+</style>
+<div class="container topgap font-head">
+    <div class="row justify-content-md-center">
+        <div class="col-md-7 card mb-4 mt-3 top">
+            <div class="card-body">
+                <p class="card-text">
+                <h2 class="centr font-head"><b><span class="orgclr">R</span><span class="underlined">egister</span><span class="orgclr underlined">.</span></b></h2><br>
+                <p class="centr"><small><b>{{ mermsg }}</b></small></p>
+                <hr/><a href="{% url 'google-sso-login' %}"><input id="senb" class="ct-btn" type="button" value="Signup with Google"></a><hr/>
+                <form method='post' autocomplete="off">
+                    {% csrf_token %}
+                    {% render_field form.username class="form-control" hx-post="/members/check_username/" hx-swap="outerhtml" hx-trigger="keyup" hx-target="#un-error" %}
+                    <div id="un-error"></div>
+                    <br>
+                    {% render_field form.email class="form-control" hx-post="/members/check_email/" hx-swap="outerhtml" hx-trigger="keyup" hx-target="#em-error" %}
+                    <div id="em-error"></div>
+                    <br>
+                    <div class="name_div">
+                        {% render_field form.first_name class="form-control width_half" %}
+                        {% render_field form.last_name class="form-control width_half" %}
+                    </div>
+                    <br>
+                    {% render_field form.password1 class="form-control" %}
+                    <div id="erp1"></div>
+                    <br>
+                    {% render_field form.password2 class="form-control" %}
+                    <div id="erp2"></div><br>
+                    <script src='https://www.google.com/recaptcha/api.js'></script>
+                    <div class="g-recaptcha" data-sitekey="6Lfj_d8oAAAAACd9E4bo7c2A_jQGlkMTl-zvWTcY" data-theme="dark"></div>
+                    <p class="font-head"><small>By Registering You Agree to:</small><br>
+                    <small>1. Our <a href="{% url 'policy' %}">T & C</a></small><br>
+                    <small>2. Recieve Email Notifications of new posts.</small></p>
+                    <div class="centr">
+                        <br>
+                        <input id="senb"  class="ct-btn" type="submit" value="Register" disabled>
+                        <br><br>
+                        Already have an account? 
+                        <a href="{% url 'login' %}" class="orgclr"> Login</a>
+                    </div>
+                </form>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const pas1 = document.getElementById('pass1');
+    const pas2 = document.getElementById('pass2');
+    const isvalid = false
+    pas1.addEventListener('keyup', (ev) => {
+        let txt = pas1.value
+        const isvalid = CheckPassword(txt)
+        if(isvalid){
+            document.getElementById('erp1').innerHTML = '<small style="color:green; padding-left:2%;"><b> Password is Valid! </b></small>'
+        }
+        else{
+            document.getElementById('erp1').innerHTML = '<small style="color:red; padding-left:2%;"><b> Password is Invalid! </b></small>'
+        }
+        CheckEqual()
+    })
+    function CheckPassword(inputtxt) 
+    { 
+        var decimal=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+        if(inputtxt.match(decimal)) 
+        { 
+            return true;
+        }
+        else
+        { 
+            return false;
+        }
+    } 
+    pas2.addEventListener('keyup', (ev) => {
+        CheckEqual()
+    })
+    function CheckEqual(){
+        if(pas1.value == pas2.value){
+            document.getElementById("senb").disabled = false
+            document.getElementById('erp2').innerHTML = '<small style="color:green; padding-left:2%;"><b> Password Matched! </b></small>'
+        }
+        else{
+            document.getElementById("senb").disabled = true
+            document.getElementById('erp2').innerHTML = '<small style="color:red; padding-left:2%;"><b> Password Mismatch! </b></small>'
+        }
+    }
+</script>
+{% endblock %}

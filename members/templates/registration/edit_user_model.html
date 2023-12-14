@@ -1,0 +1,15 @@
+{% load widget_tweaks %}
+{% load static %}
+        <div class="dp-cont centr" id="dpscreen">
+                <img class="dp-image" src='{{ user.profileinfo.display_picture.url }}'>
+                <br>
+                <div class="vis-btn">
+                        <form method='post' enctype="multipart/form-data" hx-post="{% url 'updatedp' user.id %}" hx-trigger="change" hx-target="#dpscreen">
+                                {% csrf_token %}
+                                <input type="file" name="image" accept="image/*" class="form-dp">
+                        </form>
+                        <button class="visual" type="button"><img src="{% static 'img/image.png' %}" width="25" height="25"></button>
+                        <button class="visual del" type="button"  hx-delete="{% url 'deletedp' user.id %}" hx-target="#dpscreen" hx-confirm="Are You Sure? You can change DP instead."><img src="{% static 'img/delete.png' %}" width="20" height="20"></button>
+                </div>
+        </div>
+        

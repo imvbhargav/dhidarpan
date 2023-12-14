@@ -1,0 +1,108 @@
+body{
+    font-family: "Roboto", sans-serif;
+    font-size: 17px;
+    background-size: 100%;
+}
+.btn-danger{
+    color: #fff;
+    background-color: #3398e1;
+    border-color: #dc281e;
+}
+
+.navvy{
+    background: rgb(0, 0, 0);
+    color: white;
+}
+
+.brand{
+    color: orangered; 
+    font-weight: bold;
+}
+
+.brand:hover{
+    color: orange;
+    text-decoration: none;
+}
+
+.masthead{
+    background: linear-gradient(rgb(0,0,0,1),rgb(0,0,0,0.7),rgb(0,0,0,0));
+    height: auto;
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
+.show_replies{
+    border: 0px solid transparent;
+    background-color: transparent;
+    color: rgb(34, 173, 238);
+}
+.show_replies:hover, .show_replies:focus{
+    outline: none;
+    color: rgb(31, 91, 255);
+}
+
+#btt{
+    display:none;
+    position: fixed;
+    bottom:20px;
+    right:30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: orangered;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+#btt:hover{
+    background-color: #555;
+}
+
+.ext{
+    color: white;
+    font-weight: bold;
+}
+.ext:hover{
+    color:orangered;
+    font-weight: bolder;
+}
+.follow{
+    text-align: center;
+}
+.ft{
+    font-size: 00.9em; 
+    margin-bottom: 0; 
+    color: orangered; 
+    font-weight: bolder;
+}
+.fl{
+    font-size: 0.8em; 
+    margin: auto; 
+    font-weight: bold;
+}
+.fli{
+    filter: grayscale(100%);
+}
+
+
+
+.fli:hover{
+    filter: grayscale(0%);
+    filter: contrast(150%);
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 5px orangered;
+}
+.fli:active{
+    filter: grayscale(0%);
+    filter: contrast(150%);
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 5px orangered;
+}
+
+@media only screen and (max-width: 600px) {
+    .sidebar{
+        display: none;
+    }
+  }

@@ -1,0 +1,72 @@
+{% load static %}
+<style>
+    .btnstl{
+        background-color: black;
+        border: 1px solid white;
+        border-radius: 10px;
+        outline: none;
+        margin-left: 10px;
+        color: orangered;
+    }
+    .form-subs{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+        padding: 8px;
+        background: transparent;
+        color: #fff;
+    }
+    .form-subs:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        background: transparent;
+        transition: all 0.2s ease-in-out;
+    }
+    .error{
+        color: red;
+    }
+    .success{
+        color: green;
+    }
+    @media only screen and (max-width: 600px) {
+        .btnstl{
+            margin-top: 5px;
+            padding: 10px;
+        }
+    }
+</style>
+<div id="subs-div">
+<section class="centr" style="background: rgba(0,0,0,0);border:2px solid black;border-radius:10px;padding:20px;">
+    <h2><span style="color: orangered;">N</span>ewsletter<span style="color: orangered;">.</span></h2><hr>
+    <p> 
+    Dive into the joy of awesomeness with our newsletter.
+    <br>
+    SUBSCRIBE NOW!</b>
+    <hr>
+    <form action="{% url 'subscribe' %}" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div style="display: flex;justify-content:center;flex-wrap:wrap;padding:10px;">
+            <input id="email" name="email" type="email" class="form-subs" placeholder="Email address" {% if user.is_authenticated %}value="{{ user.email }}"{% endif %}/>
+            <button name="post_id" type="submit" value="subscribe" class="btnstl"
+            hx-target="#subs-div" hx-post="{% url 'subscribe' %}" hx-trigger="click"
+            >
+                Subscribe!
+            </button>
+        </div>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> <small>{{ message }}</small></p>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="messages">
+                <p><small>{% if not user.is_authenticated %}Enter valid email and {% endif %}press subscribe!</small></p>
+            </div>
+        {% endif %}
+    </form>
+</section>
+</div><hr>

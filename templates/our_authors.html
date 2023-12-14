@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %} Your Posts | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<style>
+    .topgap{
+        font-family: 'DM Serif Display', serif;
+    }
+    .form-control{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+    }
+    .form-control:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .dp-img{
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0px 0px 1px 2px white;
+        margin-right: 0em;
+    }
+    
+    .in-box{
+        padding: 0;
+        min-width: 200px;
+   
+        color: orangered;
+    }
+    .in-box h5{
+        margin-top: 0em;
+        color: black;
+    }
+    .in-box p{
+        color: gray;
+    }
+    .in-box a{
+        color: orangered;
+    }
+
+    .bg-cl{
+        background-color: yellowgreen;
+        min-width: 200px;
+        
+    }
+    .tnam{
+        padding-top: 5px;
+    }
+    .icinfo{
+        min-height: 200px;
+        min-width: 200px;
+        padding: 0;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+    .post-card{
+        min-height: 0%;
+    }
+    .full-box{
+        justify-content: center;
+    }
+    .bgs{
+        background-color: gray;
+        color: white;
+    }
+</style>
+<div class="container topgap"><br>
+    <div class="card" id="usr-list">
+        
+        <div class="srch">
+            <form class="form-inline my-2 my-lg-0" action="{% url 'our-authors' %}">
+                <input class="form-control sform mr-sm-2" type="search"   placeholder="Search Author" aria-label="Search" name="search">
+                <button class="sbtn btn my-2 my-sm-0" type="submit"><img src="{% static 'img/loupe.png' %}" alt="Search" width="25" height="25"></button>
+            </form>
+        </div>
+        {% if users_count > 0 %}
+        <h5 class="centr bgs"><b>Our Authors</b></h5><br>
+        <div class="row">
+            {% for usr in authors %} 
+                         <div class="post-card col">
+                            <div class="row justify-content-md-center centr full-box">
+                                <img class="dp-img" src=" {{ usr.profileinfo.display_picture.url }}">
+                                <div class="in-box col-md-8">
+                                    <h5 class="centr"><b><a style="color: black;" href="{% url 'profile' usr.username %}">{{ usr.first_name }} {{ usr.last_name }}</a></b></h5> 
+                                    {% if usr.profileinfo.website_url %}
+                                    <h4><a href="{{ usr.profileinfo.website_url }}"><small><img src="{% static 'img/world-wide-web.png' %}" width="15" height="15"></small></a>  |  
+                                    {% endif %}
+                                    {% if usr.profileinfo.facebook_url %}
+                                    <a href="{{ usr.profileinfo.facebook_url }}"><small><img src="{% static 'img/fbl.png' %}" width="15" height="15"></small></a>  |  
+                                    {% endif %}
+                                    {% if usr.profileinfo.twitter_url %}
+                                    <a href="{{ usr.profileinfo.twitter_url }}"><small><img src="{% static 'img/tw.png' %}" width="15" height="15"></small></a>  |  
+                                    {% endif %}
+                                    {% if usr.profileinfo.linkedin_url %}
+                                    <a href="{{ usr.profileinfo.linkedin_url }}"><small><img src="{% static 'img/linkedin.png' %}" width="15" height="15"></small></a>  |  
+                                    {% endif %}
+                                    {% if usr.profileinfo.youtube_url %}
+                                    <a href="{{ usr.profileinfo.youtube_url }}"><small><img src="{% static 'img/yt.png' %}" width="15" height="15"></small></a>
+                                    {% endif %}
+                                    </h4>
+                                    <p><small>{{ usr.profileinfo.bio | slice:100 }}...</small></p> 
+                                </div>
+                            </div>
+                        </div>              
+            {% endfor %}
+            </div>
+{% else %}
+<br><br><br><br><br>
+<p class="centr"><b>Sorry, No Author found!</b></p>
+<br><br><br><br><br>
+            <br>
+        {% endif %}
+        <br><hr>
+        <div class="xfoot centr">
+            <h4><strong> Want to explore more? </strong></h4>
+            <h6 style="color: orangered;"><b> Explore our blog by </b></h6>
+            <div class="xlinks">
+                <a href="{% url 'our-authors' %}"><b> Authors </b></a> | 
+                <a href="{% url 'popular' %}"><b> Popular </b></a> |  
+                <a href="{% url 'archive' %}"><b> Archive </b></a>
+                <br><b>Or</b><br>
+                <a href="{% url 'home' %}"><b> Back To Home</b></a>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock %}

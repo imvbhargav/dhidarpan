@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .form-control{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+    }
+    .form-control:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .card{
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+    .font-head{
+        font-family: 'DM Serif Display', serif;
+    }
+    .orgclr{
+        color: orangered;
+    }
+    #subs-div{
+        display: none;
+    }
+    .d-none{
+        display: none;
+    }
+</style>
+<br>
+    <div class="form-content topgap font-head">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 card">
+                    
+                        <div class=" justify-content-center">
+                            <div id="error_div"></div>
+                          <h3 class="font-weight-light my-4 text-center"><span class="orgclr">U</span>nsubscribe<span class="orgclr">.</span></h3><hr>
+                        </div>
+                        {% if form.errors %}
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <div id="form_errors">
+                                    {% for key, value in form.errors.items %}
+                                        <strong>{{ value }}</strong>
+                                    {% endfor %}
+                                </div>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="centr">Thanks for staying with us till this time, We are sad to see you go!</p><br>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="col-md-10 offset-md-1">
+                                    <div class="form-group">
+                                        {% if user.is_authenticated %}
+                                        <input type="email" name="email"  class="form-control d-none"
+                                               autocomplete="email" maxlength="254" required id="id_email"
+                                               placeholder="Enter email" value="{{ user.email }}">
+                                        {% else %}
+                                        <input type="email" name="email"  class="form-control"
+                                               autocomplete="email" maxlength="254" required id="id_email"
+                                               placeholder="Enter email">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div><br>
+                                <div class="form-row">
+                                  <div class="col-md-10 offset-md-1">
+                                    <div class="form-group mt-0 mb-1">
+                                        <button type="submit" class="col-md-12 btn ct-btn">Unsubscribe
+                                        </button>
+                                    </div>
+                                    {% if messages %}
+                                        <div class="messages">
+                                            {% for message in messages %}
+                                            <p  {% if message.tags %} class=" {{ message.tags }} centr" {% endif %}> <small>{{ message }}</small></p>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="messages">
+                                            <p class="centr"><small>{% if not user.is_authenticated %}Enter valid email and {% endif %}press unsubscribe!</small></p>
+                                        </div>
+                                    {% endif %}
+                                 </div>
+                               </div>
+                               <br>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+  </div>
+{% endblock content %}

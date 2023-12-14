@@ -1,0 +1,575 @@
+{% extends 'base.html' %}
+{% block title %} All Posts | Dhi Darpan {% endblock %}
+{% load static %}
+{% block content %}
+<style>
+    .form-control{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+    }
+    .form-control:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+    }
+    footer{
+        margin-top: 0;
+    }
+    .xfoot{
+        margin-top: 5em;
+        
+    }
+    .listinfo{
+        padding-top: 0.5em;
+    }
+
+
+    * {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+  margin-top: -1px;
+}
+.mbl-shw{
+  display: none;
+}
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: orangered;
+  font-weight: bold;
+  font-size: 15px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: transparent;
+  color: black;
+}
+
+/* Caption text */
+.slidetext {
+  color: #f2f2f2;
+  font-size: 15px;
+  font-family: 'DM Serif Display', serif;
+  background-color: rgba(0,0,0,0.8);
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
+  margin: 0 2px;
+  background-color: gray;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: orangered;
+}
+
+/* Fading animation */
+.fader {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+.w100-mbl{
+  width: 60%;
+}
+.w100-sec-mbl{
+  width: 73%;
+}
+.fnt-siz-sml
+{
+  font-size: x-large
+}
+.p-less-mbl{
+  padding: 10px;
+  border: 2px solid black;
+  background: rgba(255,69,0,0.5);
+  border-radius: 10px;
+  color: black;
+}
+
+.p-less-mbl:hover{
+  color: white;
+  background-color: black;
+  border: 2px solid orangered;
+  animation: fade 500ms linear;
+}
+
+.p20-mbl{
+  padding-left: 40px;
+}
+.p-0-mbl{
+  padding: 20px;
+  max-width: 32%; 
+}
+.pt-0-mbl{
+  padding: 20px;
+}
+.mw-100-p-20-mbl{
+  max-width: 23%;
+  padding-top: 20px;
+}
+.thumb-mbl{
+  width: 100%;
+  height: 30vw;
+}
+.p-5-fs-sml{
+  padding: 10px;
+}
+.fnt-siz-sml-spn{
+  font-size: xx-large;
+}
+.w-24-mbl-100{
+  width: 24%;
+}
+.h-100{
+  height: 100vh;
+}
+.thumb-mbl-sml{
+  height: 10vw;
+}
+.ml-5cus{
+  margin-left: 5px;
+}
+.cate_title{
+  text-align: center; 
+  background-color: white; 
+  padding: 10px; opacity: 0.8;
+  position: relative; top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+}
+.cate_div{
+  -webkit-filter: grayscale(50%);
+  filter: grayscale(50%);
+}
+
+.cate_div:hover{
+  cursor: pointer;
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+  -webkit-filter: grayscale(50%);
+  filter: grayscale(0);
+  transition: 300ms ease-in;
+  color: orangered;
+}
+
+.border-mbl1{
+  width: 100%;
+  height: 15px;
+  background-color: transparent;
+  box-shadow: 10px 10px black, -10px 10px black;
+  display: none;
+  border-radius: 10px;
+}
+.border-mbl2{
+  width: 100%;
+  height: 10px;
+  background-color: black;
+  display: none;
+}
+.border-mbl3{
+  width: 100%;
+  height: 15px;
+  background-color: transparent;
+  box-shadow: 10px -10px black, -10px -10px black;
+  display: none;
+  border-radius: 10px;
+}
+.srch_div{
+  width: 32%;
+}
+
+.mt-2em{
+  margin-top: 2em;
+}
+.srch_pd{
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+@keyframes fade {
+  from {opacity: .6}
+  to {opacity: 1}
+}
+
+    @media only screen and (max-width: 1200px) {
+      .hide-mbl-blog-pic{
+          display: none;
+      }
+      .w100-mbl{
+        width: 100%;
+      }
+    }
+
+    @media only screen and (max-width: 1040px) {
+      .fnt-siz-sml{
+        font-size: large
+      }
+      .w100-mbl{
+        height: 80%;
+      }
+      .mt-2em{
+        margin-top: 3em;
+      }
+    }
+
+    @media only screen and (max-width: 650px) {
+      .p-less-mbl{
+        padding: 5px;
+        height: fit-content;
+        font-size: small;
+      }
+      .fnt-siz-sml{
+        font-size: medium;
+      }
+      .flx-wrp-mbl{
+        flex-wrap: wrap;
+      }
+      .p-less-mbl{
+        font-size: x-small;
+      }
+      .form-control{
+        font-size: x-small;
+      }
+      .w100-sec-mbl{
+        width: 100%;
+      }
+      .p20-mbl{
+        padding-left: 20px;
+      }
+      .p-0-mbl{
+        padding-left: 0;
+        max-width: 100%;
+      }
+      .pt-0-mbl{
+        padding-top: 0;
+      }
+      .mw-100-p-20-mbl{
+        max-width: 100%;
+        padding: 20px;
+      }
+      .v-mbl{
+        display: block;
+      }
+      .thumb-mbl{
+        height: 45vw;
+      }
+      .p-5-fs-sml{
+        padding: 5px;
+        font-size: small;
+      }
+      .fnt-siz-sml-spn{
+        font-size: small;
+      }
+      .w-24-mbl-100{
+        width: 100%;
+      }
+      .m-100{
+        width: 100%;
+      }
+      .fnt-x-lrg{
+        font-size: x-large;
+      }
+      .h-100{
+        height: auto;
+      }
+      .thumb-mbl-sml{
+        width: 50%;
+        height: 20vh;
+      }
+      .card-cont{
+        padding: 6% 0 0 0;
+      }
+      .border-mbl1{
+        display: block;
+      }
+      .border-mbl2{
+          display: block;
+      }
+      .border-mbl3{
+          display: block;
+      }
+      .srch_div{
+        width:auto;
+      }
+      .srch_pd{
+        padding-left: 10px;
+        padding-top: 0px;
+      }
+      .cate_div{
+        -webkit-filter: grayscale(30%);
+        filter: grayscale(30%);
+      }
+    }
+    @media only screen and (max-width: 460px) {
+      .p-less-mbl{
+        padding: 5px;
+        height: fit-content;
+        font-size: small;
+      }
+      .fnt-siz-sml{
+        font-size: medium;
+      }
+      .flx-wrp-mbl{
+        flex-wrap: wrap;
+      }
+      .p-less-mbl{
+        font-size: x-small;
+      }
+      .form-control{
+        font-size: x-small;
+      }
+      .w100-sec-mbl{
+        width: 100%;
+      }
+      .p20-mbl{
+        padding-left: 20px;
+      }
+      .p-0-mbl{
+        padding: 0;
+        max-width: 100%;
+      }
+      .pt-0-mbl{
+        padding-top: 0;
+      }
+      .mw-100-p-20-mbl{
+        max-width: 100%;
+        padding: 20px;
+      }
+      .v-mbl{
+        display: block;
+      }
+      .thumb-mbl{
+        height: 45vw;
+      }
+      .p-5-fs-sml{
+        padding: 5px;
+        font-size: small;
+      }
+      .fnt-siz-sml-spn{
+        font-size: small;
+      }
+      .w-24-mbl-100{
+        width: 100%;
+      }
+      .m-100{
+        width: 100%;
+      }
+      .fnt-x-lrg{
+        font-size: x-large;
+      }
+      .h-100{
+        height: auto;
+      }
+      .thumb-mbl-sml{
+        display: none;
+      }
+    }
+</style>
+<div class="card-cont h-100" style="border-radius: 25px;width: 100vw; display: flex; justify-content: space-around; flex-direction: column;">
+  <div style="width: 100%; display: flex; justify-content: space-around; flex-direction: row; border-radius: 10px;">
+    <div class="xfoot centr w100-mbl mt-2em">
+      <div style=" text-align: left;" >
+        <h5 style="font-family: 'DM Serif Display', serif; font-weight: 800; font-size: xx-large;border-radius: 10px; text-align: center;">
+          {% if user.is_authenticated %}
+          <span>Welcome<span>,</span> {{ user.first_name }}<span style="color: orangered;">!</span></span>
+          {% else %}
+          <span>Welcome<span>,</span> Guest<span style="color: orangered;">!</span></span>
+          {% endif %}
+        </h5>
+      </div>
+      <br>
+    </div>
+  </div>
+  <div class="srch srch_pd" style="width: 100%; display: flex; justify-content: space-between;align-items: center; font-family: 'DM Serif Display', serif;">
+    <a class="p-less-mbl" href="{% url 'our-authors' %}"><b> Authors </b></a>
+    <a class="p-less-mbl ml-5cus" href="{% url 'popular' %}"><b> Popular </b></a>
+    <a class="p-less-mbl ml-5cus" href="{% url 'archive' %}"><b> Archive </b></a>
+    <form class="form-inline" action="{% url 'home' %}" style="display: flex; justify-content: flex-end">
+        <input style="width: 60%; background:transparent;" class="form-control sform mr-sm-2" type="search"   placeholder="Search by Title" aria-label="Search" name="search">
+        <button class="sbtn btn my-2 my-sm-0" type="submit"><img src="{% static 'img/loupe.png' %}" alt="Search" width="25" height="25"></button>
+    </form>
+  </div>
+</div>
+<div class="card-cont" style="margin-top: 0; padding-top: 0; font-family: 'DM Serif Display', serif;">
+
+{% if ol_count > -1 %}
+
+{% if ol_count == 0 %}
+<br><br><br><br><br>
+<p class="centr"><b>Sorry, No results found!</b></p>
+<br><br><br><br><br>
+{% else %}
+<br><br>
+<p class="centr"><b>{{ ol_count }} results found!</b></p>
+<div style=" display: flex; justify-content: space-between;flex-wrap:wrap;">
+  {% for post in post_list %}
+  <div class="border-mbl1"></div>
+  <div class="border-mbl2"></div>
+  <div class="border-mbl3"></div>
+  <div class="srch_div" style=" font-family: 'DM Serif Display', serif;  padding: 20px; " class="p-0-mbl">
+    <!--Group of horizontal posts-->
+    <a class="tmb" href={% url 'post_detail' post.slug %}><img class="thumb thumb-mbl-sml" src="../media/{{ post.thumbnail }}" alt="{{ post.slug }}"></a>
+    <div class="listinfo">
+        <p class="text-muted"><small  style="color: orangered;">{{post.likes.count}} Likes</small></p>
+        <h5 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' post.slug %}><b>{{ post.title }}</b></a></h5>
+        <p class="text-muted"><small><small>{{post.author.first_name}} {{ post.author.last_name }} | {{ post.created_on|date:'d-M-Y' }}</small></small></p>
+    </div>
+  </div>
+  {% endfor %}
+</div><br>
+{% endif %}
+{% else %}
+  <section class="flx-wrp-mbl" style="display: flex; justify-content: space-between; font-family: 'DM Serif Display', serif;">
+    <div style="display: flex; justify-content: space-between;flex-direction: column;" class="w100-sec-mbl">
+        {% for post in latest_post %}
+        <div style="padding: 20px;">
+            <h4 class="p-5-fs-sml" style="color: black; position: absolute;border-radius: 0 0 10px 0;background-color: white;"><span class="fnt-siz-sml-spn" style="color: orangered;">L</span><span style=" text-decoration: underline">atest</span></h4>
+            <!--Big Post-->
+            <a class="tmb v-mbl" href={% url 'post_detail' post.slug %}><img class="thumb-mbl" src="../media/{{ post.thumbnail }}" alt="{{ post.slug }}"></a>
+            <div class="listinfo">
+                <p class="text-muted"><small  style="color: orangered;">{{post.likes.count}} Likes</small></p>
+                <h2 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' post.slug %}><b>{{ post.title }}</b></a></h2>
+                <p class="text-muted"><small><small>{{post.author.first_name}} {{ post.author.last_name }} | {{ post.created_on|date:'d-M-Y' }} | {{ post.categories.title }}</small></small></p>
+            </div>
+        </div>
+        {% endfor %}
+        <h4 class="p20-mbl" style="color: black;"><span style="color: orangered; font-size: xx-large;">T</span><span style=" text-decoration: underline">echnology</span></h4>
+        <div class="pt-0-mbl" style="display: flex; justify-content: space-between; flex-wrap: wrap; flex-wrap: wrap;">
+          {% for post in latest_tech_list %}
+          <div style="min-width: 200px;" class="p-0-mbl">
+            <!--Group of horizontal posts-->
+            <a class="tmb" href={% url 'post_detail' post.slug %}><img class="thumb thumb-mbl-sml" src="../media/{{ post.thumbnail }}" alt="{{ post.slug }}"></a>
+            <div class="listinfo">
+                <p class="text-muted"><small  style="color: orangered;">{{post.likes.count}} Likes</small></p>
+                <h5 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' post.slug %}><b>{{ post.title }}</b></a></h5>
+                <p class="text-muted"><small><small>{{post.author.first_name}} {{ post.author.last_name }} | {{ post.created_on|date:'d-M-Y' }}</small></small></p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+    <div class="mw-100-p-20-mbl" style="min-width: 190px;">
+        <!--Side bar posts-->
+        <h4 style="color: black;"><span style="color: orangered; font-size: xx-large;">P</span><span style=" text-decoration: underline">hilosophy</span></h4>
+        {% for item in latest_phil_list %}
+        <div>
+          <div class="listinfo">
+            <p class="text-muted"><small  style="color: orangered;">{{item.likes.count}} Likes</small></p>
+            <h5 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' item.slug %}><b>{{ item.title }}</b></a></h5>
+            <p class="text-muted"><small><small>{{item.author.first_name}} {{ item.author.last_name }} | {{ item.created_on|date:'d-M-Y' }}</small></small></p>
+          </div>
+        </div>
+        {% endfor %}
+        <hr>
+        <h4 style="color: black;"><span style="color: orangered; font-size: xx-large;">S</span><span style=" text-decoration: underline">pirituality</span></h4>
+        {% for item in latest_spir_list %}
+        <div>
+          <div class="listinfo">
+            <p class="text-muted"><small  style="color: orangered;">{{item.likes.count}} Likes</small></p>
+            <h5 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' item.slug %}><b>{{ item.title }}</b></a></h5>
+            <p class="text-muted"><small><small>{{item.author.first_name}} {{ item.author.last_name }} | {{ item.created_on|date:'d-M-Y' }}</small></small></p>
+          </div>
+        </div>
+        {% endfor %}
+        <hr>
+        <h4 style="color: black;"><span style="color: orangered; font-size: xx-large;">F</span><span style=" text-decoration: underline">iction</span></h4>
+        {% for item in latest_fict_list %}
+        <div>
+          <div class="listinfo">
+            <p class="text-muted"><small  style="color: orangered;">{{item.likes.count}} Likes</small></p>
+            <h5 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' item.slug %}><b>{{ item.title }}</b></a></h5>
+            <p class="text-muted"><small><small>{{item.author.first_name}} {{ item.author.last_name }} | {{ item.created_on|date:'d-M-Y' }}</small></small></p>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+  </section>
+  <hr>
+  <section>
+    <h4 style="color: black; font-family: 'DM Serif Display', serif; text-align: center"><span style="color: orangered; font-size: xx-large;">C</span><span style=" text-decoration: underline">ategories: </span></h4>
+    <hr>
+    <div class="flx-wrp-mbl" style=" display: flex; justify-content: space-between; padding: 20px;font-family: 'DM Serif Display', serif;">
+      {% for post in categories_list %}
+        <div class="w-24-mbl-100 cate_div" style="padding:10px">
+          <!--Group of horizontal posts-->
+          <a style="color: black; text-decoration: none;" href={% url 'category' post.slug %}>
+            <div class="listinfo" style="border: 2px solid black;background: url(../media/{{ post.thumbnail }}); border-radius: 10px; overflow: hidden; height: 150px; width:100%;">
+                <h5 class="cate_title"><b>{{ post.title }}</b></h5>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+  </section>
+{% endif %}
+</div>
+<script>
+let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+</script>
+{% endblock content %}

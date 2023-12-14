@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %} About Us | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+<style>
+    .abt{
+        color:orangered;
+    }
+    .font-head{
+        font-family: 'DM Serif Display', serif;
+    }
+    .card{
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+    .underlined{
+        text-decoration: underline;
+    }
+</style>
+<div class="container topgap font-head">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10 card mb-4 mt-3 top">
+            <div class="card-body">
+                <p class="card-text"></p>
+                <h2 class="centr"><b><span class="abt">A</span><span class="underlined">bout Us</span><span class="abt underlined">.</span></b></h2><hr>
+                <p>
+                    <p class="fnt-siz-sml" style="font-family: 'DM Serif Display', serif; font-weight: 500; padding: 20px;border-left: 2px solid orangered"><b>Dhi Darpan is a blog that explores the intersection of philosophy and technology, as well as the creative potential of fictional writing.
+                        Dhi Darpan means <i>"Mind Mirror"</i> in Sanskrit, and the blog aims to reflet on the various aspects of human existance. such as ethics, values, logic, consiousness, and creativity. The blog also
+                        showcases original stories and essays that are inspired by philosophical themes or technological innovations. This is a platform for sharing opinions and thoughts on topics that matter
+                        to the modern world, and for engaging with curious minds who are interested in learning and growing.</b>
+                      </p>
+                      <p> Welcome to <span style="color:orangered;font-family: 'Grechen Fuemen', serif;">dhi darpan</span>,</p>
+                    <p>Well, the first thing you might want to know is what does Dhi Darpan mean?</p>
+                    <p>These are Sanskrit words where Dhi means 'Thoughts' and Darpan means 'Mirror', So roughly Dhi Darpan translates to 'Mirror of Thoughts'.</p>
+                    <p>Dhis is not a company nor an organization this is just an individual project.</p>
+                    <p>This project is a blog site that can be used to upload posts or articles.</p>
+                    <br>
+                    <h5><b>Authors</b></h5><hr>
+                    <p>The articles can be uploaded by users who have author privilages, to get the author privilage follow the following steps:</p><br>
+                    <p>1.Register to Dhi Darpan Blog.</p>
+                    <p>2.After you recieve a Email confirmation, send us an email for author privilages @ dhidarpan@gmail.com</p>
+                    <p>OR</p>
+                    <p>Send us the message using <a href="{% url 'contact' %}">Contact Us</a> form after you login.</p><br>
+                    <h5><b>Editors</b></h5><hr>
+                    <p>The articles can be edited and published by users who have editor privilages, to get the editor privilage follow the following steps:</p><br>
+                    <p>1.Register to Dhi Darpan Blog.</p>
+                    <p>2.After you recieve a Email confirmation, send us an email for editor privilages @ dhidarpan@gmail.com</p>
+                    <p>OR</p>
+                    <p>Send us the message using <a href="{% url 'contact' %}">Contact Us</a> form after you login.</p>
+                    <br>
+                    <h5><b>Developer</b></h5><hr>
+                    <p>
+                        <a href="/profile/Bhargav_Jois"style="color:orangered;"><b>Bhargav V</b></a>
+                        <small>
+                        | bhargavjois@outlook.com
+                        </small>
+                    </p>
+                </p>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %} Add Post | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<style>
+    .smte{
+        width: 100%;
+    }
+    .summernote-div{
+        width: 100%;
+    }
+    #id_content_iframe{
+        width:100%;
+    }
+    .postadmin{
+        color:orangered;
+    }
+    .topgap{
+        font-family: 'DM Serif Display', serif;
+    }
+    .orng{
+        color: orangered;
+    }
+</style>
+<div class="container topgap">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10 card mb-4 mt-3 top">
+            <div class="card-body">
+                <p class="card-text">
+                {% if user.is_authenticated %}
+                {% if perms.blog.add_post %}
+                    <h2 class="centr"><b><span class="orng">A</span>dd Post<span class="orng">.</span></b></h2><br><br>
+                    <form method='post' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <small style="color:red">{{ msg }}</small>
+                    {{ form | crispy }}
+                    <div class="centr">
+                        Note:
+                        <br><p><small> Your Post Will Be Sent For Moderation<br>
+                            Until Confirmation It Will be Saved as Draft.</small></p>
+                        <input id="senb"  class="btn btn-secondary" type="submit" value="Post">
+                        </div>
+                    </form>
+                {% else %}
+                <br><br><br><br>
+                <div class="centr"> Sorry, You don't have permission to Add Your Post.</div>
+                <br><br><br><br>
+                {% endif %}
+                {% else %}
+                <div class="centr">
+                    <p><b> Please Login to Add a Post. </b></p>
+                    <a href="{% url 'login'%}"><button class="btn btn-primary">Login</button></a><br><br><br><br><br><br>
+                    <p>Don't Have An Account?</p>
+                    <a href="{% url 'register'%}"><button class="btn btn-primary">Register</button></a>
+                </div>
+                {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("pfath").value = "{{ user.id }}";
+    const slg = document.getElementById("pftit");
+    slg.addEventListener("change",addslug);
+
+    function addslug(){
+        document.getElementById('pfslg').value = slugify(document.getElementById("pftit").value);
+    }
+
+
+    function slugify(str){
+    str = str.replace(/^\s+|\s+$/g, '');
+
+    // Make the string lowercase
+    str = str.toLowerCase();
+
+    // Remove accents, swap ñ for n, etc
+    var from = "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;";
+    var to   = "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------";
+    for (var i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    // Remove invalid chars
+    str = str.replace(/[^a-z0-9 -]/g, '') 
+    // Collapse whitespace and replace by -
+    .replace(/\s+/g, '-') 
+    // Collapse dashes
+    .replace(/-+/g, '-'); 
+
+    return str;
+    }
+</script>
+{% endblock %}

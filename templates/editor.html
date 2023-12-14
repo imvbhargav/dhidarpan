@@ -1,0 +1,41 @@
+{% if draft_count > 0 %}
+<h5 class="centr" style="color: red;"><b>Drafts:</b></h5>
+<div class="row">
+{% for post in draft_posts %} 
+             <div class="post-card col">
+                <a href={% url 'post_detail' post.slug %}><img class="thumb" src="../../media/{{ post.thumbnail }}" alt="{{ post.slug }}"></a>
+                <p class="text-muted"><small><small><b>{{post.author}} | {{ post.created_on }} | {{ post.status }}</b></small></small></p>
+                <h5><strong><a class="topost" href={% url 'post_detail' post.slug %}>{{ post.title }}</a></strong></h5>
+                <a href="{% url 'update_post' post.slug %}"><button class="btn btn-primary">Edit</button></a>
+                <button class="btn btn-danger" 
+                    hx-post="{% url 'delete-post' post.slug %}"
+                    hx-target="#post-list"
+                    hx-confirm="Are you sure?">Delete</button>
+                <button class="btn btn-success" 
+                    hx-post="{% url 'publish' post.slug %}"
+                    hx-target="#post-list">Publish</button>
+            </div>              
+{% endfor %}
+</div>
+{% endif %} 
+{% if active_count > 0 %}
+<h5 class="centr" style="color: green;"><b>Published:</b></h5>
+<div class="row">
+{% for post in active_posts %}
+    
+             <div class="post-card col">
+                <a href={% url 'post_detail' post.slug %}><img class="thumb" src="../../media/{{ post.thumbnail }}" alt="{{ post.slug }}"></a>
+                <p class="text-muted"><small><small><b>{{post.author}} | {{ post.created_on }} | {{ post.status }}</b></small></small></p>
+                <h5><strong><a class="topost" href={% url 'post_detail' post.slug %}>{{ post.title }}</a></strong></h5>
+                <a href="{% url 'update_post' post.slug %}"><button class="btn btn-primary">Edit</button></a>
+                <button class="btn btn-danger" 
+                    hx-post="{% url 'delete-post' post.slug %}"
+                    hx-target="#post-list"
+                    hx-confirm="Are you sure?">Delete</button>
+                <button class="btn btn-secondary" 
+                    hx-post="{% url 'publish' post.slug %}"
+                    hx-target="#post-list">Unpublish</button>
+            </div>                
+{% endfor %}
+</div>
+{% endif %}

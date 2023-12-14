@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .form-control{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+    }
+    .form-control:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .card{
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+    .font-head{
+        font-family: 'DM Serif Display', serif;
+    }
+    .orgclr{
+        color: orangered;
+    }
+    .form-subs{
+        display:none;
+    }
+    .btnstl{
+        padding: 10px;
+    }
+</style>
+    <div class="form-content topgap font-head">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5" style="color:#000;">
+                    <br><hr>
+                    {% include 'newsletter.html' %}
+                </div>
+            </div>
+        </div>
+  </div>
+{% endblock content %}

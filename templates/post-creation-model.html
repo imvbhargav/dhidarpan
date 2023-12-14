@@ -1,0 +1,173 @@
+{% load static %}
+<style>
+    .spl-card{
+        background: black;
+        width: 200px;
+        height: 200px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        flex-direction:column;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        transition: 150ms ease;
+        font-family: 'DM Serif Display', serif;
+    }
+    .spl-card:hover{
+        background: #303030;
+        transition: 150ms ease;
+    }
+    .ornge_bordr{
+        border: 4px orangered solid;
+    }
+    .ornge_bordr:hover{
+        border: 0px orangered solid;
+        transition: 200ms ease;
+    }
+    
+    .cate_img{
+        background-repeat: repeat-x;
+        background-size: 100% 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 8.5px;
+    }
+    .cate_title{
+        background: rgba(255,69,0,0.4);
+        color: orangered;
+        padding: 10px;
+        font-family: 'DM Serif Display', serif;
+        -webkit-background-clip: text; 
+        -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+        -webkit-text-stroke-width: 1px;
+        font-size: xxx-large;
+        -webkit-text-stroke-color: black;
+    }
+    .for_bor{
+        border-radius: 10px;
+        border: 2px solid black;
+    }
+    .border-mbl1{
+        width: 100%;
+        height: 15px;
+        background-color: transparent;
+        box-shadow: 10px 10px black, -10px 10px black;
+        display: none;
+        border-radius: 10px;
+    }
+    .border-mbl2{
+        width: 100%;
+        height: 10px;
+        background-color: black;
+        display: none;
+    }
+    .border-mbl3{
+        width: 100%;
+        height: 15px;
+        background-color: transparent;
+        box-shadow: 10px -10px black, -10px -10px black;
+        display: none;
+        border-radius: 10px;
+    }
+    .w-spl{
+        width: 50px;
+        height: 50px;
+    }
+    .btn{
+        font-family: 'DM Serif Display', serif;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .container{
+            margin: 0;
+            padding: 0;
+        }
+        .for_bor{
+            border-radius: 0;
+            border: none;
+        }
+        .for_bor hr{
+            opacity: 0;
+        }
+        .border-mbl1{
+            display: block;
+        }
+        .border-mbl2{
+            display: block;
+        }
+        .border-mbl3{
+            display: block;
+        }
+    }
+</style>
+{% if user.is_authenticated %}
+        {% if perms.blog.add_post %}
+                <br><br><hr>
+                <h2 class="centr" style="font-family: 'DM Serif Display', serif;"><b>Your Posts</b></h2><hr>
+                <br>
+                <div style="display: flex; justify-content: center; align-items:center;">
+                    <a href="{% url 'add_post' %}">
+                        <div class="spl-card ornge_bordr">
+                            <img style="width:50%;height:50%" src="{% static 'img/plus.png' %}"/>
+                            <span style="color: #fff">New Post</span>
+                        </div>
+                    </a>
+                </div>
+                <hr>
+                {% if active_count > 0 %}
+                <h5 class="centr" style="color: green;font-family: 'DM Serif Display', serif;"><b>Published:</b></h5><hr>
+                <div class="row" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                {% for post in user_posts_active %}
+                <div class="post-card col for_bor">
+                    <a href={% url 'post_detail' post.slug %}><img class="thumb" src="../media/{{ post.thumbnail }}" alt="{{ post.slug }}"></a>
+                    <hr/>
+                    <div class="listinfo">
+                    <p class="text-muted"><small  style="color: orangered;">{{post.likes.count}} Likes | {{ post.created_on|date:'d-M-Y' }}</small></p>
+                    <h6 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' post.slug %}><b>{{ post.title }}</b></a></h6>
+                    </div><hr>
+                    <a href="{% url 'update_post' post.slug %}"><button class="btn btn-dark">Edit</button></a>
+                    <button class="btn btn-danger" 
+                        hx-delete="{% url 'delete-post' post.slug %}"
+                        hx-target="#post-list"
+                        hx-confirm="Are you sure?">Delete</button>
+                </div>
+                <div class="border-mbl1"></div>
+                <div class="border-mbl2"></div>
+                <div class="border-mbl3"></div>
+                {% endfor %}
+                </div>
+                {% endif %}
+                {% if draft_count > 0 %}
+                <h5 class="centr" style="color: red;font-family: 'DM Serif Display', serif;"><b>Drafts:</b></h5><hr>
+                <div class="row" style="font-family: 'DM Serif Display', serif;">
+                    {% for post in user_posts_draft %}
+                    
+                        <div class="post-card col">
+                            <a href={% url 'post_detail' post.slug %}><img class="thumb" src="../../media/{{ post.thumbnail }}" alt="{{ post.slug }}"></a>
+                            <h5><a class="topost" href={% url 'post_detail' post.slug %}>{{ post.title }}</a></h5>
+                            <a href="{% url 'update_post' post.slug %}"><button class="btn btn-primary">Edit</button></a>
+                            <button class="btn btn-danger" 
+                            hx-delete="{% url 'delete-post' post.slug %}"
+                            hx-target="#post-list"
+                            hx-confirm="Are you sure?">Delete</button>
+                        </div>
+                    
+                    {% endfor %}
+                 </div> 
+                 {% endif %}
+        {% else %}
+                <br><br><br><br><br><br><br>
+                <div class="centr"> Sorry, You don't have permission to Access this area.</div>
+                <br><br><br><br><br><br>
+        {% endif %}
+{% else %}
+                <div class="centr">
+                    <p><b> Please Login to Add a Post. </b></p>
+                    <a href="{% url 'login'%}"><button class="btn btn-primary">Login</button></a><br><br><br><br><br><br>
+                    <p>Don't Have An Account?</p>
+                    <a href="{% url 'register'%}"><button class="btn btn-primary">Register</button></a>
+                </div>
+{% endif %}

@@ -1,0 +1,12 @@
+{% autoescape off %}
+Hi Subscriber,
+
+You are receiving this mail as we received a request to subscribe to our newsletter at dhi darpan with this mail address.
+
+As part of our newsletter you will recieve the updates on our posts.
+
+{{ protocol }}://{{ domain }}{% url 'unsubscribe' %}
+
+Regards,
+dhi darpan
+{% endautoescape %}

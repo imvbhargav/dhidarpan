@@ -1,0 +1,120 @@
+{% load static %}
+{% if users_count > 0 %}
+<h5 class="centr bgs"><b>Users</b></h5><br>
+<div class="row">
+    {% for usr in users %} 
+                 <div class="post-card col">
+                    <div class="row justify-content-md-center centr full-box">
+                        <img class="dp-img" src=" {{ usr.profileinfo.display_picture.url }}">
+                        <div class="in-box col-md-8">
+                            <h5 class="centr"><b>{{ usr.first_name }} {{ usr.last_name }}</b></h5> 
+                            {% if usr.profileinfo.website_url %}
+                            <h4><a href="{{ usr.profileinfo.website_url }}"><small><img src="{% static 'img/world-wide-web.png' %}" width="15" height="15"></small></a>  |  
+                            {% endif %}
+                            {% if usr.profileinfo.facebook_url %}
+                            <a href="{{ usr.profileinfo.facebook_url }}"><small><img src="{% static 'img/fbl.png' %}" width="15" height="15"></small></a>  |  
+                            {% endif %}
+                            {% if usr.profileinfo.twitter_url %}
+                            <a href="{{ usr.profileinfo.twitter_url }}"><small><img src="{% static 'img/tw.png' %}" width="15" height="15"></small></a>  |  
+                            {% endif %}
+                            {% if usr.profileinfo.linkedin_url %}
+                            <a href="{{ usr.profileinfo.linkedin_url }}"><small><img src="{% static 'img/linkedin.png' %}" width="15" height="15"></small></a>  |  
+                            {% endif %}
+                            {% if usr.profileinfo.youtube_url %}
+                            <a href="{{ usr.profileinfo.youtube_url }}"><small><img src="{% static 'img/yt.png' %}" width="15" height="15"></small></a>
+                            {% endif %}
+                            </h4>
+                            <p><small>{{ usr.profileinfo.bio | slice:100 }}...</small></p> 
+                            <button class="btn btn-sm btn-secondary" 
+                                hx-post="{% url 'mkauthor' usr.id %}"
+                                hx-target="#usr-list"
+                                hx-confirm="Are you sure?">Make Author</button>
+                    
+                            <button class="btn btn-sm btn-dark" 
+                                    hx-post="{% url 'mkeditor' usr.id %}"
+                                hx-target="#usr-list"
+                                hx-confirm="Are you sure?">Make Editor</button>
+                        </div>
+                        </div>
+                </div>              
+    {% endfor %}
+    </div>
+    <br>
+{% endif %}
+
+{% if authors_count > 0 %}
+<h5 class="centr bgs"><b>Authors</b></h5><br>
+<div class="row">
+    {% for usr in authors %} 
+                 <div class="post-card col">
+                    <div class="row justify-content-md-center centr full-box">
+                        <img class="dp-img" src=" {{ usr.profileinfo.display_picture.url }}">
+                        <div class="in-box col-md-8">
+                            <h5 class="centr"><b>{{ usr.first_name }} {{ usr.last_name }}</b></h5> 
+                            {% if usr.profileinfo.website_url %}
+                            <h4><a href="{{ usr.profileinfo.website_url }}"><small><img src="{% static 'img/world-wide-web.png' %}" width="15" height="15"></small></a>  |  
+                            {% endif %}
+                            {% if usr.profileinfo.facebook_url %}
+                            <a href="{{ usr.profileinfo.facebook_url }}"><small><img src="{% static 'img/fbl.png' %}" width="15" height="15"></small></a>  |  
+                            {% endif %}
+                            {% if usr.profileinfo.twitter_url %}
+                            <a href="{{ usr.profileinfo.twitter_url }}"><small><img src="{% static 'img/tw.png' %}" width="15" height="15"></small></a>  |  
+                            {% endif %}
+                            {% if usr.profileinfo.linkedin_url %}
+                            <a href="{{ usr.profileinfo.linkedin_url }}"><small><img src="{% static 'img/linkedin.png' %}" width="15" height="15"></small></a>  |  
+                            {% endif %}
+                            {% if usr.profileinfo.youtube_url %}
+                            <a href="{{ usr.profileinfo.youtube_url }}"><small><img src="{% static 'img/yt.png' %}" width="15" height="15"></small></a>
+                            {% endif %}
+                            </h4>
+                            <p><small>{{ usr.profileinfo.bio | slice:100 }}...</small></p> 
+                            <button class="btn btn-sm btn-secondary" 
+                                hx-post="{% url 'mkauthor' usr.id %}"
+                                hx-target="#usr-list"
+                                hx-confirm="Are you sure?">Remove Author</button>
+                        </div>
+                        </div>
+                </div>              
+    {% endfor %}
+    </div>
+    <br>
+    {% endif %}
+
+    {% if editors_count > 0 %}
+    <h5 class="centr bgs"><b>Editors</b></h5><br>
+    <div class="row">
+        {% for usr in editors %} 
+                     <div class="post-card col">
+                        <div class="row justify-content-md-center centr full-box">
+                            <img class="dp-img" src=" {{ usr.profileinfo.display_picture.url }}">
+                            <div class="in-box col-md-8">
+                                <h5 class="centr"><b>{{ usr.first_name }} {{ usr.last_name }}</b></h5> 
+                                {% if usr.profileinfo.website_url %}
+                                <h4><a href="{{ usr.profileinfo.website_url }}"><small><img src="{% static 'img/world-wide-web.png' %}" width="15" height="15"></small></a>  |  
+                                {% endif %}
+                                {% if usr.profileinfo.facebook_url %}
+                                <a href="{{ usr.profileinfo.facebook_url }}"><small><img src="{% static 'img/fbl.png' %}" width="15" height="15"></small></a>  |  
+                                {% endif %}
+                                {% if usr.profileinfo.twitter_url %}
+                                <a href="{{ usr.profileinfo.twitter_url }}"><small><img src="{% static 'img/tw.png' %}" width="15" height="15"></small></a>  |  
+                                {% endif %}
+                                {% if usr.profileinfo.linkedin_url %}
+                                <a href="{{ usr.profileinfo.linkedin_url }}"><small><img src="{% static 'img/linkedin.png' %}" width="15" height="15"></small></a>  |  
+                                {% endif %}
+                                {% if usr.profileinfo.youtube_url %}
+                                <a href="{{ usr.profileinfo.youtube_url }}"><small><img src="{% static 'img/yt.png' %}" width="15" height="15"></small></a>
+                                {% endif %}
+                                </h4>
+                                <p><small>{{ usr.profileinfo.bio | slice:100 }}...</small></p> 
+                        
+                                <button class="btn btn-sm btn-dark" 
+                                        hx-post="{% url 'mkeditor' usr.id %}"
+                                    hx-target="#usr-list"
+                                    hx-confirm="Are you sure?">Remove Editor</button>
+                            </div>
+                            </div>
+                    </div>              
+        {% endfor %}
+        </div>
+        {% endif %}
+        <br>

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %} Update Post | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<style>
+    .topgap{
+        font-family: 'DM Serif Display', serif;
+    }
+    .postadmin{
+        color:orangered;
+    }
+</style>
+<div class="container topgap">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10 card mb-4 mt-3 top">
+            <div class="card-body">
+                <p class="card-text">
+                    <h2 class="centr"><b><span class="postadmin">E</span>dit Post<span class="postadmin">.</span></b></h2>
+                    <form method='post'  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <div class="centr">
+                            <input id="senb"  class="btn btn-secondary" type="submit" value="Update">
+                        </div>
+                    </form>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const slg = document.getElementById("pftit");
+    slg.addEventListener("change",addslug);
+
+    function addslug(){
+        document.getElementById('pfslg').value = slugify(document.getElementById("pftit").value);
+    }
+
+
+    function slugify(str){
+    str = str.replace(/^\s+|\s+$/g, '');
+
+    // Make the string lowercase
+    str = str.toLowerCase();
+
+    // Remove accents, swap ñ for n, etc
+    var from = "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;";
+    var to   = "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------";
+    for (var i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    // Remove invalid chars
+    str = str.replace(/[^a-z0-9 -]/g, '') 
+    // Collapse whitespace and replace by -
+    .replace(/\s+/g, '-') 
+    // Collapse dashes
+    .replace(/-+/g, '-'); 
+
+    return str;
+    }
+</script>
+{% endblock %}

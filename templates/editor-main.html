@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %} Your Posts | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<div class="container topgap" id="post-list">
+    <br><h4 class="centr"><b>Manage All Posts.</b></h4><br>
+    {% include 'editor.html' %}
+</div>
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+    //evt.detail.parameters['auth_token'] = getAuthToken(); // add a new parameter into the request
+    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'; // add a new header into the request
+    });
+</script>
+{% endblock %}

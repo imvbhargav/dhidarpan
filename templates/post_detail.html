@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load social_share %}
+<head>
+    <meta property="og:url"           content="bhargavvv.pythonanywhere.com{% url 'post_detail' post.slug %}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="{{ post.title }}" />
+    <meta property="og:description"   content="{{ post.slug }}" />
+    <meta property="og:image"         content="{{ post.thumbnail }}" />
+    <link rel="stylesheet" href="{% static 'css/pd.css' %}">
+    <style>
+        .container{
+            width: 60%;
+        }
+        .font-head{
+            font-family: 'DM Serif Display', serif;
+        }
+        .soc_lnk:hover{
+            transform: scale(1.4);
+            transition: 400ms ease;
+        }
+        .author-lnk{
+            color: black;
+        }
+        .author-lnk:hover{
+            color: gray;
+            text-decoration: none;
+        }
+        @media only screen and (max-width: 500px) {
+            .g-recaptcha {
+                transform:scale(0.92);
+                transform-origin:0 0;
+            }
+            .d-n{
+                display: none;
+            }
+        }
+        @media only screen and (max-width: 460px) {
+            .container{
+                width: 95%;
+            }
+            .post-head{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="post-head container post-gap">
+    <h2 class="title" style="font-family: 'DM Serif Display', serif;"><strong>{% block title %} {{ post.title }}  {% endblock title %}</strong></h2>
+    <hr class="d-n">
+    <span style="display: flex; justify-content: space-between; width: 100%;">
+        <span>
+            <p class="text-muted"><a style="color: orangered;" href="{% url 'profile' post.author.username %}">
+                <span style="padding: 10px 10px 10px 0;cursor:pointer;"><img src="{{ post.author.profileinfo.display_picture.url }}" width="25" height="25" style="border-radius: 50%"/></span>
+                <small>{{ post.author.first_name }} {{ post.author.last_name }} </small></a><small> | {{ post.created_on|date:'d-M-Y' }}</small>
+                {% if user.id == post.author.id %}
+                <a class="text-red" href="{% url 'update_post' post.slug %}"><small><b> | Edit</b></small></a>
+                {% endif %}
+            </p>
+        </span>
+        <span>
+            <p class="text-muted"><a style="color: orangered;" href="{% url 'category' post.categories.slug %}"><small>{{ post.categories.title }}</small></a></p>
+        </span>
+    </span>
+    <hr class="d-n">
+</div>
+<div class="container">
+    <div class=" justify-content-md-center">
+        <div class="col-md-12 card mb-4 mt-0 left top">
+            <div class="card-body cbin">
+                <p>{{ post.content | safe }}</p>
+            </div>
+            <hr>
+            <div>
+                <h3>About the author:</h3><hr>
+                <div>
+                    <h4 style="display:flex; justify-content:left;align-items:center;" >
+                        <a href="{% url 'profile' post.author.username %}" class="author-lnk">
+                            <span style="padding: 10px 10px 10px 0;cursor:pointer;margin:auto;">
+                                <img src="{{ post.author.profileinfo.display_picture.url }}" width="30" height="30" style="border-radius: 50%"/>
+                            </span>
+                            <strong>{{ post.author.first_name }} {{ post.author.last_name }}</strong>
+                        </a>
+                    </h4>
+                    <span>{% include 'follow.html' %}</span>
+                    <p style="margin-left: 15px; border-left: 2px solid orangered; padding-left: 10px; font-size: medium"><b>{{ post.author.profileinfo.bio }}</b></p>
+                    <div style="margin-left: 15px; border-left: 2px solid black; padding-left: 10px">
+                        {% if post.author.profileinfo.website_url %}
+                        <h4><a href="{{ post.author.profileinfo.website_url }}"><small><img class="soc_lnk" src="{% static 'img/world-wide-web.png' %}" width="15" height="15"></small></a>  |  
+                        {% endif %}
+                        {% if post.author.profileinfo.facebook_url %}
+                        <a href="{{ post.author.profileinfo.facebook_url }}"><small><img class="soc_lnk" src="{% static 'img/fbl.png' %}" width="15" height="15"></small></a>  |  
+                        {% endif %}
+                        {% if post.author.profileinfo.twitter_url %}
+                        <a href="{{ post.author.profileinfo.twitter_url }}"><small><img class="soc_lnk" src="{% static 'img/tw.png' %}" width="15" height="15"></small></a>  |  
+                        {% endif %}
+                        {% if post.author.profileinfo.linkedin_url %}
+                        <a href="{{ post.author.profileinfo.linkedin_url }}"><small><img class="soc_lnk" src="{% static 'img/linkedin.png' %}" width="15" height="15"></small></a>  |  
+                        {% endif %}
+                        {% if post.author.profileinfo.youtube_url %}
+                        <a href="{{ post.author.profileinfo.youtube_url }}"><small><img class="soc_lnk" src="{% static 'img/yt.png' %}" width="15" height="15"></small></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="overlay hid tocng" id="trem"></div>
+
+            <div class="fallback centr hid tocng">
+                <h5 class="centr"><b>Share</b></h5><br>
+                <a href="{% url 'post_detail' post.slug %}">Link</a><br><hr>
+                <a class="share-btn fb" href="https://facebook.com/sharer/sharer.php?u=https://lazywasabi.com/blog/share-button-with-web-share-api/" target="_blank"><img src="{% static 'img/fbl.png' %}" width="25" height="25"></a> | 
+                <a class="share-btn tw" href="https://twitter.com/intent/tweet/?text=Web+Share+API+with+fallback&url=https://lazywasabi.com/blog/share-button-with-web-share-api/&via=lazywasabi" target="_blank"><img src="{% static 'img/tw.png' %}" width="25" height="25"></a> | 
+                <a href="https://api.whatsapp.com/send?text=Hey, Read this blog post from Dhi Darpan. https://dhidarpan.pythonanywhere.com/{{ post.slug }}" target="_blank"><img src="{% static 'img/wa.png' %}" width="25" height="25"></a>
+            </div>
+
+            <div class="pd-flex">
+                {% include 'likes.html' %}
+                <button type="button" class="cmmt" onclick="show_content('0','comment-form'), usr_details('0')">
+                    <img src=" {% static 'img/comment.png' %} " alt="Comment." width="25" height="25" >
+                </button>
+                <button type="button" class="cmmt" id="share-btn" onclick="">
+                    <img src=" {% static 'img/share.png' %} " alt="Share." width="25" height="25" >
+                </button>
+            </div>
+            <hr>
+        </div>
+        {% include 'comments_model.html' %}
+        <br>
+            <div class="col-md-12 card mb-4 mt-3">
+                <div class="card-body">
+                    <hr><h6 style="font-family: 'DM Serif Display', serif; text-align: left"><b>Also Read:</b></h6><hr>
+                <div style="display:flex; flex-wrap: wrap">
+                {% for item in more %}
+                    {% if item != post %}
+                        <div style="min-width: 250px; max-width: 50%; font-family: 'DM Serif Display', serif; padding: 20px;">
+                            <!--Group of horizontal posts-->
+                            <div class="listinfo">
+                                <p class="text-muted"><small  style="color: orangered;">{{item.likes.count}} Likes</small></p>
+                                <h5 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' item.slug %}><b>{{ item.title }}</b></a></h5>
+                                <p class="text-muted"><small><small>{{item.author.first_name}} {{ item.author.last_name }} | {{ item.created_on|date:'d-M-Y' }}</small></small></p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if user.is_authenticated %}
+<script>
+    function usr_details(n){
+        let i=0;
+        i = parseInt(n);
+        let usr_name = document.querySelectorAll(".cname");
+        let usr_mail = document.querySelectorAll(".cemail");
+        usr_name[i].hidden = 'true';
+        usr_mail[i].hidden = 'true';
+        usr_name[i].value = '{{ user }}';
+        usr_mail[i].value = '{{ user.email }}';
+    }
+</script>
+{% else %}
+<script>
+    function usr_details(n){}
+</script>
+{% endif %}
+<script>
+    var shareBtn = document.getElementById('share-btn');
+    shareFallback = document.getElementsByClassName('tocng');
+    overlay = document.getElementById('trem')
+    pageTitle = document.querySelector('h2.title').innetText;
+    pageUrl = "https://dhidarpan.pythonanywhere.com{% url 'post_detail' post.slug %}";
+
+shareBtn.addEventListener("click", function(ev) {
+  if (navigator.share) {
+    navigator.share({
+        text: pageTitle,
+        url: pageUrl
+      });
+  } else {
+    shareFallback[0].classList.remove('hid');
+    shareFallback[1].classList.remove('hid');
+    shareFallback[0].classList.add('shw');
+    shareFallback[1].classList.add('shw');
+  }
+});
+
+overlay.addEventListener("click",function(ev) {
+    shareFallback[0].classList.remove('shw');
+    shareFallback[1].classList.remove('shw');
+    shareFallback[0].classList.add('hid');
+    shareFallback[1].classList.add('hid');
+})
+
+</script>
+</body>
+{% endblock content %}

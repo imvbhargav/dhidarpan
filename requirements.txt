@@ -1,0 +1,8 @@
+python-decouple
+django-jazzmin
+requests
+django-extensions
+django-widget-tweaks
+django-crispy-forms
+crispy-bootstrap4
+psycopg2

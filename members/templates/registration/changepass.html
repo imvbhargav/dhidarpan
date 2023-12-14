@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %} Change Password | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+<style>
+    .topgap{
+        font-family: 'DM Serif Display', serif;
+    }
+    .logn{
+        color:orangered;
+    }
+    .form-control{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+    }
+    .form-control:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .errmsg{
+        color: red;
+    }
+</style>
+<div class="container topgap">
+    <div class="row justify-content-md-center">
+        <div class="col-md-5 card mb-4 mt-3 top">
+            <div class="card-body">
+                <p class="card-text">
+                <h2 class="centr"><b><span class="logn">C</span>hange Password<span class="logn">.</span></b></h2>
+                <br>
+                <form method='post'>
+                    {% csrf_token %}
+                    <p class="centr">Username:  {{ user.username }}</p>
+                    {% render_field form.old_password class="form-control" placeholder="Old Password" %}
+                    <br>
+                    {% render_field form.new_password1 class="form-control" placeholder="New Password"%}
+                    <br>
+                    {% render_field form.new_password2 class="form-control" placeholder="Retype New Password"%}
+                    <div class="centr">
+                        <br><br>
+                        <input id="senb"  class="ct-btn" type="submit" value="Change">
+                        <br><br>
+                    </div>
+                </form>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

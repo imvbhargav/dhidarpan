@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="google" content="notranslate" rel="stylesheet"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        {% load static %}
+        <title>{% block title %} Dhi Darpan{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'img/favicon-32x32.png' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Grechen+Fuemen" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=DM+Serif+Display" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    </head>
+    <body style="font-family: 'DM Serif Display', serif;">
+        <nav class="navvy" id="">
+            <div class="main-nav">
+                
+                <a class="brand" href="{% url 'home' %}">dhi darpan.</a>
+
+                <div class="mbl-only" style="position: absolute; float: right; right: 20vw;margin-top: 5px">
+                    {% if user.is_authenticated %}
+                    <span class="ext regs login" onclick="showUserOps()" style="padding: 10px;cursor:pointer;"><img src="{{ user.profileinfo.display_picture.url }}" width="20" height="20" style="border-radius: 50%"/></span>
+                    <div class="user-disp r_disp"  id="more-mbl" style= "display:none;position: fixed;margin-top: 0%;background-color: black;padding: 25px;border-radius: 0 0 10px 10px">
+                        {% if perms.blog.add_post %}
+                        <p><a class="ext regs" href="{% url 'pa-land' %}">Editor</a></p>
+                        {% else %}
+                        <p><a class="ext regs" href="{% url 'pa-land' %}">Profile</a></p>
+                        {% endif %}
+                        <p><a class="ext login" href="{% url 'logout' %}">Logout</a></p>
+                    </div>
+                    {% else %}
+                    <span class="ext regs login" onclick="showUserOps()" style="padding: 10px;cursor:pointer;"><img src="{% static 'img/user.png' %}" width="20" height="20" /></span>
+                    <div class="user-disp r_disp"  id="more-mbl" style= "display:none;position: fixed;margin-top: 0%;background-color: black;padding: 25px;border-radius: 0 0 10px 10px">
+                        <p><a class="ext regs" href="{% url 'register' %}">Register</a></p>
+                        <p><a class="ext login" href="{% url 'login' %}">Login</a></p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="nav-items" id="mbl-nav">
+                    <ul class="items">
+                        <li>
+                            <a class="ext abt" href="{% url 'about' %}">About</a>
+                        </li>
+                        <li>
+                            <a class="ext policy" href="{% url 'policy' %}">Policy</a>
+                        </li>
+                        <li>
+                            <a class="ext contact" href="{% url 'contact' %}">Contact</a>
+                        </li>
+                        <li class="desk-only">                            
+                            
+                            {% if user.is_authenticated %}
+                            <span class="ext regs login" onmouseover="showMore()" onmouseout="hideMore()" style="padding: 10px;cursor:pointer;"><img src="{{ user.profileinfo.display_picture.url }}" width="30" height="30" style="border-radius: 50%"/></span>
+                            <div class="user-disp r_disp" onmouseover="showMore()" onmouseout="hideMore()" id="more" style= "display:none;position: fixed;margin-top: 0%;background-color: black;padding: 25px;border-radius: 0 0 10px 10px">
+                            <p><a class="ext regs" href="{% url 'pa-land' %}">Manage</a></p>
+                            <p><a class="ext login" href="{% url 'logout' %}">Logout</a></p>
+                            </div>
+                            {% else %}
+                            <span class="ext regs login" onmouseover="showMore()" onmouseout="hideMore()" style="padding: 10px;cursor:pointer;"><img src="{% static 'img/user.png' %}" width="30" height="30" /></span>
+                            <div class="user-disp r_disp" onmouseover="showMore()" onmouseout="hideMore()" id="more" style= "display:none;position: fixed;margin-top: 0%;background-color: black;padding: 25px;border-radius: 0 0 10px 10px">
+                                <p><a class="ext regs" href="{% url 'register' %}">Register</a></p>
+                                <p><a class="ext login" href="{% url 'login' %}">Login</a></p>
+                            </div>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+
+                <button type="button" class="burger" id="burger-btn" aria-expanded="false" aria-label="menu-burger">
+                    <span class="ham"></span>
+                    <span class="ham"></span>
+                    <span class="ham"></span>
+                </button>
+                
+            </div>
+        </nav>
+        {% block content %}
+        {% endblock content %}
+        <footer class="py-3 bg-grey">
+            <div style="color:#fff;">
+                {% if not user.is_authenticated %}
+                    {% include 'newsletter.html' %}
+                {% endif %}
+            </div>
+            <div class="ml-0 text-center fmain">
+                <div class="follow">
+                    <p class="ft">Follow us on:</p>
+                    <div class="slinks">
+                        <a href="#" class="fl"><img alt="facebook" class="fli" src="{% static 'img/facebook.png' %}" width="35px" height="35px"></a>
+                        <a href="#" class="fl"><img alt="instagram" class="fli" src="{% static 'img/instagram.png' %}" width="35px" height="35px"></a>
+                        <a href="https://api.whatsapp.com/send/?phone=%2B918431070221&text&app_absent=0" class="fl"><img alt="whatsapp" class="fli" src="{% static 'img/whatsapp.png' %}" width="35px" height="35px"></a>
+                        <a href="#" class="fl"><img alt="youtube" class="fli" src="{% static 'img/youtube.png' %}" width="35px" height="35px"></a>
+                        <a href="#" class="fl"><img alt="twitter" class="fli" src="{% static 'img/twitter.png' %}" width="35px" height="35px"></a>
+                    </div>
+                </div>
+                <div class="olinks">
+                    <p class="ft">More Links</p>
+                    <a href="{% url 'about' %}" class="fl">About Us</a><br>
+                    <a href="{% url 'policy' %}" class="fl">Privacy Policy</a><br>
+                    <a href="{% url 'contact' %}" class="fl">Contact Us</a><br>
+                    <a href="{% url 'our-authors' %}" class="fl">Authors</a><br>
+                    <a href="#" class="fl">Portfolio</a>
+                </div>
+                <div class="olinks">
+                    <p class="ft">Sources</p>
+                    <a href="#" class="fl">Material Icons</a><br>
+                    <a href="#" class="fl">Bootstrap</a><br>
+                    <a href="#" class="fl">Django Central</a><br>
+                    <a href="#" class="fl">Google Fonts</a><br>
+                    <a href="#" class="fl">Flaticons</a>
+                </div>
+            </div>
+            <hr>
+            <p class="mt-1 mb-0 text-center copyr">Copyright &copy; <i>Dhi Darpan</i></p>
+            <button type="button" id="btt" onclick="topfunc()">&#8638</button>
+        </footer>
+        <script>function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+          }
+          
+          // Close the dropdown if the user clicks outside of it
+          window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+              var dropdowns = document.getElementsByClassName("dropdown-content");
+              var i;
+              for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                }
+              }
+            }
+          }</script>
+        <script src="{% static 'js/app.js' %}"></script>
+        <script src="{% static 'js/htmx.min.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            var disp = document.getElementById('more')
+            var dispMbl = document.getElementById('more-mbl')
+            function showMore(){
+                disp.style.display = 'block';
+            }
+            function hideMore(){
+                disp.style.display = 'none';
+            }
+            function showUserOps(){
+                if (dispMbl.style.display == 'none'){
+                    dispMbl.style.display = 'block';
+                }
+                else{
+                    dispMbl.style.display = 'none';
+                }
+            }
+        </script>
+    </body>

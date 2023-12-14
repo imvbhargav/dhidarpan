@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %} Contact Us | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<style>
+    .contact{
+        color:orangered;
+    }
+    .ct{
+        border: none;
+        border-bottom: 2px gray solid;
+        border-radius: 0px;
+    }
+    .ct:focus{
+        border: none;
+        outline: 0;
+        border-bottom: 2px orangered solid;
+        border-radius: 0px;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .font-head{
+        font-family: 'DM Serif Display', serif;
+    }
+    .card{
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+    .orgclr{
+        color: orangered;
+    }
+    .underlined{
+        text-decoration: underline;
+    }
+    @media only screen and (max-width: 500px) {
+        .g-recaptcha {
+            transform:scale(0.72);
+            transform-origin:0 0;
+        }
+    }
+</style>
+<div class="container topgap font-head">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6 card mb-4 mt-3 top">
+            <div class="card-body centr">
+                <h2 class="centr"><b><span class="contact">C</span><span class="underlined">ontact Us</span><span class="contact underlined">.</span></b></h2><hr>
+                {% if msg_name %}
+                    <br/><br/><br/><br/><br/>
+                    <h3>Thanks {{ msg_name }}!</h3>
+                    <span class="grn" >Messege sent succesfully!</span>
+                    <br/><br/><br/><br/><br/>
+                {% else %}
+                <br>
+                <form class="centr" method='post'>
+                    {% csrf_token %}
+                    {{ contact_form | crispy }}
+                    <script src='https://www.google.com/recaptcha/api.js'></script>
+                    <div class="g-recaptcha" data-sitekey="6Lfj_d8oAAAAACd9E4bo7c2A_jQGlkMTl-zvWTcY" data-theme="dark"></div><br>
+                    <input id="senb"  class="ct-btn" type="submit" value="Send">
+                </form>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

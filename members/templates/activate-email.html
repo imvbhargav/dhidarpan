@@ -1,0 +1,12 @@
+{% autoescape off %}
+Hi {{ user.username }},
+
+You are receiving this mail as we received a request to create a account at dhi darpan with this mail address.
+
+Please click on the link below to confirm your registration:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+Regards,
+dhi darpan
+{% endautoescape %}

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block title %} {{ usr.username }}'s Profile | Dhi Darpan {% endblock %}
+{% block content %}
+{% load static %}
+<style>
+    .topgap{
+        font-family: 'DM Serif Display', serif;
+    }
+    .card{
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+    .dp-img{
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0px 0px 1px 2px white;
+        margin-right: 1em;
+    }
+    .orng{
+        color: orangered;
+    }
+    .in-box{
+        padding: 0;
+        min-width: 200px;
+   
+        color: orangered;
+    }
+    .in-box h5{
+        margin-top: 0em;
+        color: black;
+    }
+    .in-box p{
+        color: gray;
+    }
+    .in-box a{
+        color: orangered;
+    }
+
+    .bg-cl{
+        background-color: yellowgreen;
+        min-width: 200px;
+        
+    }
+    .tnam{
+        padding-top: 5px;
+    }
+    .icinfo{
+        min-height: 200px;
+        min-width: 200px;
+        padding: 0;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+    .post-card{
+        min-height: 0%;
+    }
+    .full-box{
+        justify-content: center;
+    }
+    .dna{
+        display: none;
+    }
+</style>
+<div class="container topgap">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10 card mb-4 mt-3 top">
+            <div class="card-body centr">
+                <p class="card-text centr"></p>
+                <h3 class="centr"><b><span class="orng">U</span>ser Profile<span class="orng">.</span></b></h3>
+                <hr><br><br>
+                <div class="row justify-content-md-center full-box">
+               
+                <img class="dp-img" src=" {{ usr.profileinfo.display_picture.url }}">
+                <div class="in-box col-md-8">
+                    <h5><b>{{ usr.first_name }} {{ usr.last_name }}</b></h5> 
+                    <p><span>{% include 'follow.html' %}</span></p>
+                    {% if usr.profileinfo.website_url %}
+                    <h4><a href="{{ usr.profileinfo.website_url }}"><small><img src="{% static 'img/world-wide-web.png' %}" width="15" height="15"></small></a>  |  
+                    {% endif %}
+                    {% if usr.profileinfo.facebook_url %}
+                    <a href="{{ usr.profileinfo.facebook_url }}"><small><img src="{% static 'img/fbl.png' %}" width="15" height="15"></small></a>  |  
+                    {% endif %}
+                    {% if usr.profileinfo.twitter_url %}
+                    <a href="{{ usr.profileinfo.twitter_url }}"><small><img src="{% static 'img/tw.png' %}" width="15" height="15"></small></a>  |  
+                    {% endif %}
+                    {% if usr.profileinfo.linkedin_url %}
+                    <a href="{{ usr.profileinfo.linkedin_url }}"><small><img src="{% static 'img/linkedin.png' %}" width="15" height="15"></small></a>  |  
+                    {% endif %}
+                    {% if usr.profileinfo.youtube_url %}
+                    <a href="{{ usr.profileinfo.youtube_url }}"><small><img src="{% static 'img/yt.png' %}" width="15" height="15"></small></a>
+                    {% endif %}
+                    </h4>
+                    <p><small>{{ usr.profileinfo.bio }}</small></p> 
+                </div>
+                </div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>
+{% if posts %}
+<div class="card-cont topgap"><hr>
+<h5 class="centr"><b> Posts From Author: </b></h5><hr>
+<div class="row">
+    {% for post in posts %}
+    <div class="post-card col">
+        <a href={% url 'post_detail' post.slug %}><img class="thumb" width="50" height="50" src="../media/{{ post.thumbnail }}" alt="{{ post.slug }}"></a>
+        <div class="listinfo"><br>
+        <p class="text-muted"><small  style="color: orangered;">{{post.likes.count}} Likes</small>
+            <small><small> | {{ post.created_on|date:'d-M-Y' }}</small></small>
+        </p>
+        <h6 style="margin-bottom: 0;"><a class="topost" href={% url 'post_detail' post.slug %}><b>{{ post.title }}</b></a></h6>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+    </div>
+    {% if posts.has_other_pages %}
+    <br><br><br>
+    <div class="centr">
+    <div class="paginations">
+        {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}"><b>&laquo;</b> prev</a>
+        <a href="?page={{ posts.previous_page_number }}" >{{ posts.previous_page_number }}</a>
+        {% endif %}
+        <a href="#" class="active">{{ posts.number }}</a>
+        {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}" >{{ posts.next_page_number }}</a>
+        <a >.</a>
+        <a >.</a>
+        <a >.</a>
+        <a href="?page={{ posts.paginator.num_pages }}" >{{ posts.paginator.num_pages }}</a>
+        <a href="?page={{ posts.next_page_number }}">next <b>&raquo;</b></a>
+    {% endif %}
+    </div>
+    </div>
+    {% endif %}
+{% endif %}
+{% endblock %}
