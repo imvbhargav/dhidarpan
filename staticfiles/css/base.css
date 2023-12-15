@@ -1,7 +1,12 @@
+/*#####################################################################*/
+/* CSS for base.html starts here */
+/*#####################################################################*/
 body{
     font-family: "Roboto", sans-serif;
     font-size: 17px;
     background-size: 100%;
+    overflow-x: hidden;
+    background-color: #e5decf;
 }
 .btn-danger{
     color: #fff;
@@ -12,16 +17,55 @@ body{
 .navvy{
     background: rgb(0, 0, 0);
     color: white;
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    padding: 0.7% 0 0.7% 0;
 }
 
 .brand{
-    color: orangered; 
+    font-family: 'Grechen Fuemen', serif;
+    color: orangered;
+    font-size: x-large;
     font-weight: bold;
 }
 
 .brand:hover{
     color: orange;
     text-decoration: none;
+}
+.navbar-collapse{
+    padding-right: 10%;
+}
+.burger{
+    display: none;
+}
+.main-nav{
+    display: flex;
+    align-items: center;
+    padding: 0 13% 0 14%;
+}
+.nav-items{
+    position: absolute;
+    display: inline-flex;
+    right: 0;
+    padding-right: 13%;
+}
+
+.items{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.items li{
+    float: left;
+    margin-left: 5rem;
+}
+
+.r_disp{
+    right: 10%;
 }
 
 .masthead{
@@ -56,6 +100,13 @@ body{
     font-size: 18px;
 }
 
+.cus-nav{
+    background-color: blue;
+    width: 50%;
+    height: 60%;
+    position:fixed;
+}
+
 #btt:hover{
     background-color: #555;
 }
@@ -67,27 +118,46 @@ body{
 .ext:hover{
     color:orangered;
     font-weight: bolder;
+    text-decoration: none;
+}
+.nav-btn{
+    background: none;
+    border: none;
+    color: orangered
 }
 .follow{
-    text-align: center;
+    text-align: left;
+
 }
 .ft{
-    font-size: 00.9em; 
-    margin-bottom: 0; 
-    color: orangered; 
+    font-size: 1em;
+    color: orangered;
     font-weight: bolder;
+    margin-bottom: 10px;
 }
+
 .fl{
-    font-size: 0.8em; 
-    margin: auto; 
+    font-size: 0.8em;
+    margin: auto;
+    color:whitesmoke;
     font-weight: bold;
+    margin-right: 5px;
+}
+.fl:hover{
+    color:orange;
+    text-decoration: none;
 }
 .fli{
-    filter: grayscale(100%);
+    filter: grayscale(80%);
 }
+.slinks{
+    margin-top: 10px;
+    text-align: left;
+}
+.olinks{
+    text-align: left;
 
-
-
+}
 .fli:hover{
     filter: grayscale(0%);
     filter: contrast(150%);
@@ -101,8 +171,500 @@ body{
     box-shadow: 1px 1px 10px 5px orangered;
 }
 
-@media only screen and (max-width: 600px) {
-    .sidebar{
+.fmain{
+    padding-left: 14%;
+    padding-right: 13%;
+    display: grid;
+    grid-template-columns: 50% 25% 25%;
+}
+
+.ct-btn{
+    background-color: orangered;
+    border-radius: 10px;
+    border: none; color:#fff;
+    padding: 5px 20px 10px 20px;
+}
+.ct-btn:hover{
+    background-color: gray;
+    border-radius: 10px;
+    border: none; color:#fff;
+    padding: 5px 20px 10px 20px;
+}
+footer{
+    background-color: black;
+    margin-top: 5em;
+}
+.copyr{
+    color: blanchedalmond;
+    font-size: 0.7em;
+}
+.copyr i{
+    color: orangered;
+    font-family: 'Grechen Fuemen', serif;
+}
+.mbl-only{
+    display: none;
+}
+
+/*#####################################################################*/
+/* CSS for base.html ends here */
+/*#####################################################################*/
+
+
+
+
+
+/*#####################################################################*/
+/* CSS of index.html starts here */
+/*#####################################################################*/
+.card-cont{
+    padding: 6% 10.7% 0 12.52%;
+}
+.row{
+    width:100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+.post-card{
+    position: relative;
+    max-width:33.3%;
+    min-width:30%;
+    min-height: 100%;
+    margin-top: 5px;
+    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-right: 10px;
+    margin-right: 0.5em;
+}
+
+.thumb{
+    width:100%;
+    height: 25vh;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 1px gray;
+}
+.text-muted{
+    margin-bottom: 0;
+    font-family: 'Fredoka One', serif;
+}
+.card-foot{
+    position: absolute;
+    bottom: 0;
+    color:rgb(64, 64, 63);
+}
+.display{
+
+    background-color: orangered;
+}
+.headings{
+    color: orangered;
+    font-size: large;
+    font-family: serif;
+    font-weight: bolder;
+    padding-left: 15px;
+}
+.septr{
+    background-color:orangered;
+    height:1px;
+    margin-top: -8px;
+    width: 10%;
+    margin-left: 15px;
+}
+.topost{
+    text-decoration: none;
+    color: rgb(57, 57, 57);
+}
+.topost:hover{
+    text-decoration: none;
+    color: gray;
+}
+.page-link{
+    color: orangered'
+}
+.pl-active{
+    font-size: large;
+}
+.paginations {
+    display: inline-block;
+}
+  
+.paginations a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+  
+.paginations a.active {
+    background-color: orangered;
+    color: white;
+    border-radius: 5px;
+}
+  
+.paginations a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+
+.srch{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.srch form{
+    justify-content: center;
+    width: 100%;
+}
+.sbtn{
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+.sbtn:hover{
+    background-color: gray;
+}
+.card, .form-control{
+    background-color: #e5decf;
+}
+/*#####################################################################*/
+/* CSS of index.html ends here */
+/*#####################################################################*/
+
+.centr{
+    text-align: center;
+}
+.grn{
+    color: green;
+}
+.topgap{
+    padding-top: 5%;
+}
+.post-card h6{
+    font-family: 'DM Serif Display', serif;
+    font-size: x-large;
+}
+.xfoot h4{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/* Media query CSS for Medium Screen Responsiveness Starts here */
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+
+@media only screen and (min-width: 600px) and (max-width: 1000px) {
+
+
+/*#####################################################################*/
+    /* CSS of base.html starts here */
+/*#####################################################################*/
+    .fmain{
+        padding-left: 14%;
+    }
+    .ham{
+        display: block;
+        width: 22px;
+        height: 2px;
+        margin-top: 4px;
+        position: relative;
+
+        background: #cdcdcd;
+        border-radius: 3px;
+
+        z-index:1;
+
+        transform-origin: 4px 0px;
+
+        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
+    }
+    .r_disp{
+        right: 15%;
+    }
+    .ham:first-child{
+        transform-origin: 0% 0%;
+    }
+
+    .ham:nth-last-child(2){
+        transform-origin: 0% 100%;
+    }
+
+    .ham-active{
+        opacity: 1;
+        transform: rotate(-45deg) translate(-6px, 0px);
+        background: orangered;
+    }
+
+    .ham-active:nth-last-child(3){
+        opacity: 0;
+        transform: rotate(0deg) scale(0.2,0.2);
+    }
+    .ham-active:nth-last-child(2){
+        transform: rotate(45deg) translate(-4px,0px);
+    }
+
+    .nav-items{
+        background-color: rgba(0,0,0,0.85);
+        width: 45%;
+        height: 100vh;
+        padding-top: 20vh;
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        display: flex;
+        opacity: 0%;
+        left: 100%;
+        transition: all 0.3s ease-in-out;
+    }
+    .ni-active{
+        box-shadow: 1px 1px 15px 10px #000;
+        opacity: 100%;
+        left: 55%;
+        transition: all 0.3s ease-in-out;
+    }
+    .items{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow: visible;
+        align-items: center;
+        justify-content: center;
+    }
+    .items li{
+        margin: 0 20% 15% 20%;
+    }
+    .burger{
+        display: block;
+        position: absolute;
+        right: 8.4%;
+        background-color: transparent;
+        border: none;
+        color: #fff;
+    }
+    .burger:focus{
+            outline: 0px;
+    }
+    .desk-only{
         display: none;
     }
+    .mbl-only{
+        display: block;
+    }
+/*#####################################################################*/
+    /* CSS of base.html ends here */
+/*#####################################################################*/
+
+
+.post-card h6{
+    font-size: large;
+}
+
+
+/*#####################################################################*/
+    /* CSS of index.html starts here */
+/*#####################################################################*/
+    .card-cont{
+        padding-top: 8%;
+    }
+    .post-card{
+        max-width:100%;
+        min-width:40%;
+    }
+    .thumb{
+        width:100%;
+        height:20vw;
+    }
+    .headings{
+        display: none;
+    }
+    .septr{
+        display: none;
+    }
+/*#####################################################################*/
+    /* CSS of index.html ends here */
+/*#####################################################################*/
+}
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/* Media query CSS for Medium Screen Responsiveness ends here */
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+
+
+
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/* Media query CSS for Mobile Screen Responsiveness Starts here */
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+@media only screen and (max-width: 600px) {
+
+/*#####################################################################*/
+    /* CSS of base.html starts here */
+/*#####################################################################*/
+    .card-cont{
+        padding: 3em 0 0 0;
+    }
+    .navvy{
+        padding: 2.5% 0 2.5% 0;
+    }
+    .topgap{
+        padding-top: 15%;
+    }
+    .main-nav{
+        padding: 0 1% 0 1%;
+    }
+    .brand{
+        padding-left: 5%;
+    }
+    .fmain{
+        padding-left: 6%;
+        padding-right: 6%;
+        grid-template-columns: auto;
+    }
+    .olinks{
+        margin-top: 10%;
+    }
+    .ham{
+        display: block;
+        width: 22px;
+        height: 2px;
+        margin-top: 4px;
+        position: relative;
+
+        background: #cdcdcd;
+        border-radius: 3px;
+
+        z-index:1;
+
+        transform-origin: 4px 0px;
+
+        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
+    }
+    .r_disp{
+        right: 10%;
+    }
+
+    .ham:first-child{
+        transform-origin: 0% 0%;
+    }
+
+    .ham:nth-last-child(2){
+        transform-origin: 0% 100%;
+    }
+
+    .burger[aria-expanded = "true"] span{
+        opacity: 1;
+        transform: rotate(-45deg) translate(-6px, 0px);
+        background: orangered;
+    }
+
+    .burger[aria-expanded = "true"] span:nth-last-child(3){
+        opacity: 0;
+        transform: rotate(0deg) scale(0.2,0.2);
+    }
+    .burger[aria-expanded = "true"] span:nth-last-child(2){
+        transform: rotate(45deg) translate(-4px,0px);
+    }
+
+    .desk-only{
+        display: none;
+    }
+
+    .d-none{
+        display: none;
+    }
+    .nav-items{
+        background-color: rgba(0,0,0,0.85);
+        width: 45%;
+        height: 100vh;
+        padding-top: 15vh;
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        display: flex;
+        opacity: 0%;
+        left: 100%;
+        transition: all 0.3s ease-in-out;
+    }
+    .ni-active{
+        box-shadow: 1px 5px 5px 1px #000;
+        opacity: 100%;
+        left: 55%;
+        transition: all 0.3s ease-in-out;
+    }
+    .items{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow: visible;
+        align-items: center;
+        justify-content: center;
+    }
+    .items li{
+        margin: 0 20% 15% 20%;
+    }
+    .burger{
+        display: block;
+        position: absolute;
+        right: 8.4%;
+        background-color: transparent;
+        border: none;
+        color: #fff;
+    }
+    .burger:focus{
+        outline: 0px;
+    }
+    .mbl-only{
+        display: block;
+    }
+/*#####################################################################*/
+    /* CSS of base.html starts here */
+/*#####################################################################*/
+
+    .post-card h6{
+        border-bottom: 1px gray solid;
+        font-size: x-large;
+    }
+
+
+/*#####################################################################*/
+    /* CSS of index.html starts here */
+/*#####################################################################*/
+    .post-card{
+        max-width:95%;
+        min-width:50%;
+        padding-left: 4.8%;
+        padding-right: 0%;
+    }
+    .row{
+        margin-top: 1em;
+    }
+    .thumb{
+        width:100px;
+        height:50px;
+        right: 1em;
+    }
+    .headings{
+        font-size: small;
+        padding-left: 6%;
+    }
+    .septr{
+        margin-left: 6%;
+        width: 30%;
+        margin-top: -8px;
+    }
+    .sform{
+        width: 70%;
+    }
+    .srch{
+        justify-content: center;
+    }
+/*#####################################################################*/
+    /* CSS of index.html ends here */
+/*#####################################################################*/
   }
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+  /* Media query CSS for Mobile Screen Responsiveness ends here */
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/

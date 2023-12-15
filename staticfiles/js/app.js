@@ -1,33 +1,33 @@
+// Show Comment Button
 function show_content(i, model){
     if (model == "reply-form"){
     rf = document.getElementById("reply-form-" + i);
-        if (rf.style.display == "none"){
-        rf.style.display = "block";
-        }
-        else{
-        rf.style.display = "none";
-        }
+    displayToggle(rf);
     }
     else if (model == "comment-form"){
         c = document.getElementById("comment-box");
-        if (c.style.display == "none"){
-        c.style.display = "block";
-        }
-        else{
-        c.style.display = "none";
-        }
+        displayToggle(c);
     }
     else if (model == "replies"){
         rep = document.getElementById("reply-box-" + i);
-        if (rep.style.display == "none"){
-        rep.style.display = "block";
-        }
-        else{
-        rep.style.display = "none";
-        }
+        displayToggle(rep);
     }
 
 }
+function displayToggle(element){
+    if (element.classList.contains("pd-none")){
+        element.classList.remove("pd-none");
+        element.classList.add("pd-block");
+    }
+    else{
+        element.classList.remove("pd-block")
+        element.classList.add("pd-none");
+    }
+}
+
+
+
+// Go To Top Button
 let mybutton = document.getElementById("btt");
 window.onscroll = function(){scrollFunction()};
 function scrollFunction(){
@@ -38,8 +38,18 @@ function scrollFunction(){
         mybutton.style.display="none";
     }
 }
-
 function topfunc(){
     document.body.scrollTop=0;
     document.documentElement.scrollTop=0;
 }
+
+
+
+// Mobile Nav-bar Button
+const bbtn = document.getElementById("burger-btn");
+bbtn.addEventListener('click', function openNav(){
+    const mn = document.getElementById("mbl-nav");
+    const isOpen = bbtn.getAttribute('aria-expanded') === 'true';
+    mn.classList.contains("ni-active") ? mn.classList.remove("ni-active") :  mn.classList.add("ni-active");
+    isOpen ? bbtn.setAttribute('aria-expanded','false') : bbtn.setAttribute('aria-expanded','true');   
+})

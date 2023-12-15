@@ -6,11 +6,18 @@
         font-size: medium;
     }
     .title{
-        font-size: x-large;
+        font-size: xxx-large;
         font-family: 'DM Serif Display', serif;
+        padding: 20px 0 20px 0;
     }
     .text-muted{
-        font-size: small;
+        font-size: x-large;
+    }
+    #text-muted-cmt{
+        font-size: medium;
+    }
+    #text-muted-rly{
+        font-size: medium;
     }
     .container{
         padding-left: 12px;
@@ -217,5 +224,11 @@
         }
         .in-box{
             padding-top: 1em;
+        }
+        .title{
+            font-size: x-large;
+        }
+        .text-muted{
+            font-size: medium;
         }
     }
