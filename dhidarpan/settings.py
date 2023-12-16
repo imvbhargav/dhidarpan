@@ -91,12 +91,12 @@ WSGI_APPLICATION = 'dhidarpan.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'defaultdb',
-        'USER': 'avnadmin',
-        'PASSWORD' : 'AVNS_8nw9_aez8W4NtDPJOX0',
-        'HOST' : 'pg-273b9531-dhidarpan.a.aivencloud.com',
-        'PORT' : '10708'
+        'ENGINE': config('ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD' : config('PASSWORD'),
+        'HOST' : config('HOST'),
+        'PORT' : config('PORT')
     }
 }
 
